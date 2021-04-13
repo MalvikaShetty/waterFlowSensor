@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title> Water Usage Calculator | BUY NOW!!</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="watersensor-try/css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
 
 	<style type="text/css">
 		*{
@@ -179,19 +179,19 @@
 		<div class="slideshow-container">
 			<div class="mySlides fade">
 			  <div class="numbertext">1 / 3</div>
-			  <img src="watersensor-try/img/water.jpg" style="width:95%">
+			  <img src="img/water.jpg" style="width:95%">
 			  <div class="text">Save Water</div>
 			</div>
 
 			<div class="mySlides fade">
 			  <div class="numbertext">2 / 3</div>
-			  <img src="watersensor-try/img/water2.jpg" style="width:95%">
+			  <img src="img/water2.jpg" style="width:95%">
 			  <div class="text">Save Water</div>
 			</div>
 
 			<div class="mySlides fade">
 				<div class="numbertext">3 / 3</div>
-				<img src="watersensor-try/img/circuit.jpg" style="width:95%; height:550px;">
+				<img src="img/circuit.jpg" style="width:95%; height:550px;">
 				<div class="text">Circuit Diagram</div>
 			</div>
 			
