@@ -1,0 +1,7 @@
+[
+    {
+        "display":"Know more &#8594",
+        "url":"https://www.elprocus.com/a-memoir-on-water-flow-sensor/#:~:text=To%20monitor%20the%20amount%20of,are%20used%20for%20this%20purpose.&text=Water%20flow%20sensors%20are%20installed,water%20flowed%20through%20the%20pipe."
+    }
+
+]

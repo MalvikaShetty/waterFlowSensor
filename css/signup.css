@@ -60,11 +60,7 @@ button:hover {
   padding: 16px;
   background-color: white;
   opacity: 0.9;
-}
 
-.formborder {
-  border:1px solid #ccc;
-  border-radius:30px;
 }
 
 /* Clear floats */
