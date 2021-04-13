@@ -15,7 +15,7 @@ else if(mysqli_num_rows($rsemail)>0){
 }
 session_start();
 $_SESSION['hashpass']= password_hash($pass, PASSWORD_DEFAULT);
-$query = "INSERT INTO user (Username,Password,Email) VALUES('" . $uname . "', '" . password_hash($pass, PASSWORD_DEFAULT) . "', '" . $email . "')";
+$query = "INSERT INTO WaterSensor.user (Username,Password,Email) VALUES('" . $uname . "', '" . password_hash($pass, PASSWORD_DEFAULT) . "', '" . $email . "')";
 $rs=mysqli_query($con,$query)or die("Could Not Perform the Query");
 echo "<br><br><br><div class=head1>Your Login ID  $uname Created Sucessfully</div>";
 echo "<br><div class=head1>Please Login using your Login ID</div>";
