@@ -1,7 +1,7 @@
 <?php
   $host ="54.172.58.108";
-  $user ="watersensor";
-  $password ="watersensor11";
+  $user ="IOTsensor";
+  $password ="sensorIOT";
   $db ="WaterSensor";
 
   $con = mysqli_connect($host, $user, $password, $db);  
