@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title> Water Usage Calculator | BUY NOW!!</title>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+	<link rel="stylesheet" href="css/dashboard.css" type="text/css">
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+
+        <nav>
+            <div style="display:flex;text-align:left;">
+                <p>Welcome&nbsp;</p>
+                <p id="userID"><?php
+                                session_start();
+                                $name = $_SESSION['username'];
+                                echo $name;
+                                ?></p>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()" id="bars" style="margin:-40px 0 0 0;">
+                <i class="fa fa-2x fa-bars"></i>
+            </a>
+            <ul id="menu">
+
+                <div style="flex:1; text-align: right;margin:40px 0 0 0;">
+                    <li> <a href="index.php"> Home </a> </li>
+                    <li> <a href="AboutPage.php"> About The Product </a> </li>
+                    <li> <a href="Contacts.php"> Contact us </a> </li>
+                    <li>
+                        <?php if (isset($_SESSION['loggedin'])) : ?>
+                            <a href="logout.php" id="login"> Log Out </a>
+                        <?php else : ?>
+                            <a href="phpLogin.php" id="login"> Log In </a>
+                        <?php endif; ?>
+                    </li>
+                    </div>
+                </ul>
+        </nav>
+
+
+    </div>
+
+<!-- https://codepen.io/jlalovi/details/bIyAr -->
+<div class="container">
+    <!-- DONUT CHART BLOCK (LEFT-CONTAINER) -->
+    <div class="donut-chart-block block">
+      <h2 class="titular">OS AUDIENCE STATS</h2>
+      <div class="donut-chart">
+        <!-- PORCIONES GRAFICO CIRCULAR
+        ELIMINADO #donut-chart
+        MODIFICADO CSS de .donut-chart -->
+        <div id="porcion1" class="recorte">
+          <div class="quesito ios" data-rel="21"></div>
+        </div>
+        <div id="porcion2" class="recorte">
+          <div class="quesito mac" data-rel="39"></div>
+        </div>
+        <div id="porcion3" class="recorte">
+          <div class="quesito win" data-rel="31"></div>
+        </div>
+        <div id="porcionFin" class="recorte">
+          <div class="quesito linux" data-rel="9"></div>
+        </div>
+        <!-- FIN AÑADIDO GRÄFICO -->
+        <p class="center-date">JUNE<br><span class="scnd-font-color">2013</span></p>
+      </div>
+      <ul class="os-percentages horizontal-list">
+        <li>
+          <p class="ios os scnd-font-color">iOS</p>
+          <p class="os-percentage">21<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="mac os scnd-font-color">Mac</p>
+          <p class="os-percentage">39<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="linux os scnd-font-color">Linux</p>
+          <p class="os-percentage">9<sup>%</sup></p>
+        </li>
+        <li>
+          <p class="win os scnd-font-color">Win</p>
+          <p class="os-percentage">31<sup>%</sup></p>
+        </li>
+      </ul>
+    </div>
+    <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
+    <div class="line-chart-block block">
+      <div class="line-chart">
+        <div class='grafico'>
+          <ul class='eje-y'>
+            <li data-ejeY='30'></li>
+            <li data-ejeY='20'></li>
+            <li data-ejeY='10'></li>
+            <li data-ejeY='0'></li>
+          </ul>
+          <ul class='eje-x'>
+            <li>Apr</li>
+            <li>May</li>
+            <li>Jun</li>
+          </ul>
+          <span data-valor='25'>
+            <span data-valor='8'>
+              <span data-valor='13'>
+                <span data-valor='5'>
+                  <span data-valor='23'>
+                    <span data-valor='12'>
+                      <span data-valor='15'>
+                      </span></span></span></span></span></span></span>
+        </div>
+  
+      </div>
+      <ul class="time-lenght horizontal-list">
+        <li><a class="time-lenght-btn" href="#14">Week</a></li>
+        <li><a class="time-lenght-btn" href="#15">Month</a></li>
+        <li><a class="time-lenght-btn" href="#16">Year</a></li>
+      </ul>
+      <ul class="month-data clear">
+        <li>
+          <p>APR<span class="scnd-font-color"> 2013</span></p>
+          <p><span class="entypo-plus increment"> </span>21<sup>%</sup></p>
+        </li>
+        <li>
+          <p>MAY<span class="scnd-font-color"> 2013</span></p>
+          <p><span class="entypo-plus increment"> </span>48<sup>%</sup></p>
+        </li>
+        <li>
+          <p>JUN<span class="scnd-font-color"> 2013</span></p>
+          <p><span class="entypo-plus increment"> </span>35<sup>%</sup></p>
+        </li>
+      </ul>
+    </div>
+    <div class="bar-chart-block block">
+      <h2 class='titular'>By Country <span>*1000</span></h2>
+      <div class='grafico bar-chart'>
+<?php
+include("connection.php");
+session_start();
+$query = "SELECT * FROM WaterSensor.Readings"; //You don't need a ; like you do in SQL
+$result = mysqli_query($con,$query);
+  
+    
+        echo "<ul class='eje-y'>";
+        while($row = mysqli_fetch_array($result)){  
+         echo "<li data-ejeY='60'>" . $row['Date'] . "</li>" ;
+        }
+         echo "</ul>";
+        echo "<ul class='eje-x'>";
+          echo "<li data-ejeX='37'>" . $row['VolumeOfWater']. "</i>";
+        
+        echo "</ul>";
+    
+  
+  mysqli_close($con);
+?>
+  </div>
+    </div>
+  </div>
+  <p class='nota-final'>Este pen es sólo para que <strong>@jlalovi</strong> complemente con los gráficos <a href='https://codepen.io/jlalovi/details/bIyAr'>el suyo</a>.</p>
+  </body>
+  </html>
