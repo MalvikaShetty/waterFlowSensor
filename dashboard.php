@@ -149,12 +149,14 @@ $result = mysqli_query($con,$query);
     
         echo "<ul class='eje-y'>";
         while($row = mysqli_fetch_array($result)){  
-         echo "<li data-ejeY='60'>" . $row['Date'] . "</li>" ;
+         echo "<li>" . $row['Date'] . "</li>" ;
         }
+
          echo "</ul>";
-        echo "<ul class='eje-x'>";
-          echo "<li data-ejeX='37'>" . $row['VolumeOfWater']. "</i>";
-        
+         while($row = mysqli_fetch_array($result)){ 
+         echo "<ul class='eje-x'>";
+          echo "<li>" . $row['VolumeOfWater']. "</i>";
+         }
         echo "</ul>";
     
   
