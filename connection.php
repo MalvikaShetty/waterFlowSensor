@@ -1,5 +1,5 @@
 <?php
-  $host ="54.172.58.108";
+  $host ="localhost";
   $user ="IOTsensor";
   $password ="sensorIOT";
   $db ="WaterSensor";
