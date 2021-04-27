@@ -13,7 +13,7 @@ $password = stripcslashes($password);
 $username = mysqli_real_escape_string($con, $username);
 $password = mysqli_real_escape_string($con, $password);
 
-$sql = "select * from WaterSensor.user where Username = '$username' LIMIT 1";
+$sql = "select * from WaterSensor.Users where Username = '$username' LIMIT 1";
 
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);

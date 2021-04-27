@@ -1,7 +1,7 @@
 <?php
-  $host ="3.82.49.231";
-  $user ="malvika";
-  $password ="malvika11";
+  $host ="54.172.58.108";
+  $user ="watersensor";
+  $password ="watersensor11";
   $db ="WaterSensor";
 
   $con = mysqli_connect($host, $user, $password, $db);  
