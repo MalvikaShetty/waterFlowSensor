@@ -122,6 +122,15 @@
     </div>
 </div>
 
+<!-- Table -->
+
+<table id="basic-data-table" class="table nowrap" style="width:100%">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Total Water Usage (l)</th>
+      </tr>
+  </thead>
 <?php
 
 include("connection.php");
@@ -129,25 +138,28 @@ session_start();
 $query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
-echo "<table border='1'>
-<tr>
-<th>Date</th>
-<th>Volume in Litres</th>
-</tr>";
-
 while($row = mysqli_fetch_array($result))
 {
+echo "<tbody>" ; 
 echo "<tr>";
 echo "<td>" . $row['Date'] . "</td>";
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
+echo "</tbody>" ; 
 }
-echo "</table>";
+
 
 mysqli_close($con);
 ?>
+</table>
 
-
+<script>
+  $(document).ready(function() {
+    $('#basic-data-table').DataTable({
+      "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
+    });
+  });
+</script>
 
 <!-- https://codepen.io/jlalovi/details/bIyAr -->
 <div class="container">
