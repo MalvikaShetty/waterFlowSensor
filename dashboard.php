@@ -69,7 +69,7 @@
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
-                            echo "<p>" . $row['SUM(VolumeOfWater)'] . 'L' ."</p>" ;
+                            echo "<p>" . $row['SUM(VolumeOfWater)'] . ' L' ."</p>" ;
                             }
                             mysqli_close($con);
                             ?>
@@ -97,11 +97,11 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select avg(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $query = "Select AVG(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
-                            $value = mysqli_fetch_object($result);  
+                            // $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
-                            echo "<p>" . $row['avg(AverageUse)'] . 'L' . "</p>" ;
+                            echo "<p>" . $row['AVG(AverageUse)'] . ' L' . "</p>" ;
                             }
                             mysqli_close($con);
                             ?>
@@ -126,7 +126,7 @@
 
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
+$query = "Select Date,AVG(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table border='1'>
@@ -139,7 +139,7 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
 echo "<td>" . $row['Date'] . "</td>";
-echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
+echo "<td>" . $row['AVG(AverageUse)'] . "</td>";
 echo "</tr>";
 }
 echo "</table>";
