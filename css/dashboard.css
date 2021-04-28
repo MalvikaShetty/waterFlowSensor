@@ -401,7 +401,7 @@ EL CSS DEL PEN ORIGINAL
  /* CARD */
 /*-------- global --------*/
 body {
-	background-color: #242424;
+	background-color: #161630;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 16px;
 }
@@ -533,17 +533,65 @@ body {
 }
 
 /* Table */
-
-body {
-    background-color: #fff;
-    padding: 20px;
+.table__wrapper {
+    overflow-x: auto;
+    width: 100%;
+    border: 1px solid #f0f0f0;
   }
   
-  .top-information,
-  .bottom-information {
-    padding: 0 20px;
+  .table__wrapper .table {
+    width: 100%;
+    max-width: 100%;
   }
-
-
-
-
+  
+  .table tr th,
+  .table tr td {
+    white-space: nowrap;
+  }
+  
+  /* ------- Presentational Formatting --------- */
+  * {
+    font-family: Arial, Helvetica, sans-serif;
+  
+    
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  .center {
+    margin: 0 auto;
+    width: 75%;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    color:black;
+    background-color: white ;
+  }
+  
+  .table tr {
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .table thead tr {
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .table thead th {
+    text-align: center;
+  }
+  
+  .table td,
+  .table th {
+    padding: .5em;
+    border-right: 1px solid #f0f0f0;
+  }
+  
+  .table td {
+    text-align: center;
+  }
+  
+  .table th {
+    text-align: left;
+  }

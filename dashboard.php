@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/dashboard.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </head>
 
@@ -124,6 +125,39 @@
 
 <!-- Table -->
 
+<section class="center">
+  <h1>Comparing Popular Phone Models</h1>
+  <div class="table__wrapper">
+    <table class="table" summary="This is a summary of your rad table contents.">
+      <thead>
+        <tr>
+          <th scope="row"></th>
+          <th scope="col">iPhone 6</th>
+          <th scope="col">iPhone 6 Plus</th>
+          <th scope="col">Galaxy Note 4</th>
+          <th scope="col">HTC One (M8)</th>
+          <th scope="col">Samsung Galaxy S5</th>
+          <th scope="col">Nokia Lumia 830</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Screen Size</th>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+          <td>5.7 in</td>
+          <td>5 in</td>
+          <td>5.1 in</td>
+          <td>5 in</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="center">
+  <h1>Your previous usage</h1>
+  <div class="table__wrapper">
 <?php
 
 include("connection.php");
@@ -131,7 +165,7 @@ session_start();
 $query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
-echo "<table id='basic-data-table' class='table nowrap' style='width:100%'>
+echo "<table id='basic-data-table' class='table' style='width:75%'>
   <thead>
     <tr>
       <th>Date</th>
@@ -153,15 +187,10 @@ echo "</tbody>" ;
 echo "</table>";
 mysqli_close($con);
 ?>
+  </div>
+</section>
+<br><br>
 
-
-<script>
-  $(document).ready(function() {
-    $('#basic-data-table').DataTable({
-      "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
-    });
-  });
-</script>
 
 <!-- https://codepen.io/jlalovi/details/bIyAr -->
 <div class="container">
