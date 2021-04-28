@@ -124,19 +124,21 @@
 
 <!-- Table -->
 
-<table id="basic-data-table" class="table nowrap" style="width:100%">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Total Water Usage (l)</th>
-      </tr>
-  </thead>
 <?php
 
 include("connection.php");
 session_start();
 $query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
+
+echo "<table id='basic-data-table' class='table nowrap' style='width:100%'>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Total Water Usage (l)</th>
+      </tr>
+  </thead>";
+
 
 while($row = mysqli_fetch_array($result))
 {
@@ -148,10 +150,10 @@ echo "</tr>";
 echo "</tbody>" ; 
 }
 
-
+echo "</table>";
 mysqli_close($con);
 ?>
-</table>
+
 
 <script>
   $(document).ready(function() {
