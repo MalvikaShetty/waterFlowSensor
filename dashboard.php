@@ -67,8 +67,8 @@
                             session_start();
                             $query = "Select SUM(VolumeOfWater) as 'TodayAverage' from Readings WHERE Date='2020-01-02';"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
-            
-                            echo "<p>" . $row['TodayAverage'] . "</p>" ;
+                            $value = mysqli_fetch_object($result); 
+                            echo "<p>" . $value . "</p>" ;
                             mysqli_close($con);
                             ?>
                         </div>
@@ -97,8 +97,8 @@
                             session_start();
                             $query = "Select avg(AverageUse) as 'DailyAverage' from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M;"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
-                              
-                            echo "<p>" . $row['DailyAverage'] . "</p>" ;
+                            $value = mysqli_fetch_object($result);  
+                            echo "<p>" . $value . "</p>" ;
                             mysqli_close($con);
                             ?>
                         </div>
