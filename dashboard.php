@@ -65,11 +65,11 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02';"; //You don't need a ; like you do in SQL
+                            $query = "Select VolumeOfWater, SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02';"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
-                            echo "<p>" . $row['SUM(VolumeOfWater)'] . "</p>" ;
+                            echo "<p>" . $row['VolumeOfWater'] . "</p>" ;
                             }
                             mysqli_close($con);
                             ?>
