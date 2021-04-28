@@ -48,6 +48,76 @@
 
     </div>
 
+
+    <div class="container1">
+    <div class="row">
+    	<!-- flex-container -->
+        <div class="col-md-12 flex-container1">
+         
+            <!-- flex-item -->
+            <div class="flex-item">
+            	<div class="flex-item-inner">
+                	<!-- card -->
+                    <a href="#">
+                        <div class="card-front bg-magenta">
+                            <i class="fa fa-heart fa-3x tile-icon icon-white"></i>
+                            <h4>Today's Usage</h4>
+                            <?php
+                            include("connection.php");
+                            session_start();
+                            $query = "Select SUM(VolumeOfWater) as 'TodayAverage' from Readings WHERE Date='2020-01-02';"; //You don't need a ; like you do in SQL
+                            $result = mysqli_query($con,$query);
+            
+                            echo "<p>" . $row['TodayAverage'] . "</p>" ;
+                            mysqli_close($con);
+                            ?>
+                        </div>
+                        <div class="card-back bg-magenta">
+                            <p class="title">Praesent varius mi sem</p>
+                            <p class="desc">Cras posuere consequat nisl, ut rhoncus odio finibus sit amet. Sed consectetur dapibus.</p>
+                            <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+                        </div>
+                    </a>
+                    <!-- /card -->
+                </div>
+            </div>
+            <!-- /flex-item -->
+           
+            
+            <!-- flex-item -->
+            <div class="flex-item">
+            	<div class="flex-item-inner">
+                	<!-- card -->
+                	<a href="#">
+                        <div class="card-front bg-blue">
+                            <i class="fa fa-sun-o fa-3x tile-icon icon-white"></i>
+                            <h4>Your Daily Average Usage</h4><br>
+                            <?php
+                            include("connection.php");
+                            session_start();
+                            $query = "Select avg(AverageUse) as 'DailyAverage' from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M;"; //You don't need a ; like you do in SQL
+                            $result = mysqli_query($con,$query);
+                              
+                            echo "<p>" . $row['DailyAverage'] . "</p>" ;
+                            mysqli_close($con);
+                            ?>
+                        </div>
+                        <div class="card-back bg-blue">
+                            <p class="title">Vestibulum eget sem malesuada</p>
+                            <p class="desc">Etiam imperdiet ullamcorper dolor sit amet molestie. Quisque eu nibh in ligula.</p>
+                            <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+                        </div>
+                    </a>
+                    <!-- /card -->
+                </div>
+            </div>
+            <!-- /flex-item -->
+           
+        </div>
+        <!-- /flex-container -->
+    </div>
+</div>
+
 <!-- https://codepen.io/jlalovi/details/bIyAr -->
 <div class="container">
     <!-- DONUT CHART BLOCK (LEFT-CONTAINER) -->
@@ -163,7 +233,7 @@ $result = mysqli_query($con,$query);
   mysqli_close($con);
 ?>
   </div>
-    </div>
+  </div>
   </div>
   <p class='nota-final'>Este pen es sólo para que <strong>@jlalovi</strong> complemente con los gráficos <a href='https://codepen.io/jlalovi/details/bIyAr'>el suyo</a>.</p>
   </body>
