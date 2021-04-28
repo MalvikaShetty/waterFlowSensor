@@ -69,7 +69,7 @@
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
-                            echo "<p>" . $row['SUM(VolumeOfWater)'] . "</p>" ;
+                            echo "<p>" . $row['SUM(VolumeOfWater)'] . 'L' ."</p>" ;
                             }
                             mysqli_close($con);
                             ?>
@@ -97,11 +97,11 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select avg(AverageUse) as 'DailyAverage' from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $query = "Select avg(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
-                            echo "<p>" . $row['DailyAverage'] . "</p>" ;
+                            echo "<p>" . $row['avg(AverageUse)'] . 'L' . "</p>" ;
                             }
                             mysqli_close($con);
                             ?>
@@ -121,6 +121,33 @@
         <!-- /flex-container -->
     </div>
 </div>
+
+<?php
+
+include("connection.php");
+session_start();
+$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
+$result = mysqli_query($con,$query);
+
+echo "<table border='1'>
+<tr>
+<th>Date</th>
+<th>Volume in Litres</th>
+</tr>";
+
+while($row = mysqli_fetch_array($result))
+{
+echo "<tr>";
+echo "<td>" . $row['Date'] . "</td>";
+echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
+echo "</tr>";
+}
+echo "</table>";
+
+mysqli_close($con);
+?>
+
+
 
 <!-- https://codepen.io/jlalovi/details/bIyAr -->
 <div class="container">
