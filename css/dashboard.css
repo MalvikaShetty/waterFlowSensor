@@ -7,9 +7,6 @@ Css orignal https://codepen.io/jlalovi/details/bIyAr
   -moz-box-sizing: border-box;
   box-sizing: border-box;  
 }
-body {
-	background: #1f253d;
-}
 
 ul {
 	list-style-type: none;
@@ -27,17 +24,11 @@ h2 {
 
 p {
 	font-size: 15px;
+
 }
 
-a {
-	text-decoration: none;
-	font-size: 15px;
-}
-	a:hover {
-		text-decoration: underline;
-	}
 
-h1, h2, p, a, span{
+h1, h2,p,a, span{
 	color: #fff;
 }
 	.scnd-font-color {
@@ -400,11 +391,7 @@ EL CSS DEL PEN ORIGINAL
 
  /* CARD */
 /*-------- global --------*/
-body {
-	background-color: #161630;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 16px;
-}
+
 .container1 {
 	margin: 50px;
 }
@@ -509,17 +496,12 @@ body {
 .card-back p.link {
 	color: #702082;
 }
-.card-back.bg-violet {
-	background-color: #d8d7df;
-}
+
 .card-back.bg-magenta {
 	background-color: #ddd0cf;
 }
 .card-back.bg-blue {
 	background-color: #c8d7df;
-}
-.card-back.bg-green {
-	background-color: #d9e6dc;
 }
 
 /*-------- cards / flip effect --------*/
