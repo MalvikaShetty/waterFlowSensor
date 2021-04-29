@@ -535,8 +535,8 @@ body {
 /* Table */
 .table__wrapper {
     overflow-x: auto;
-    width: 100%;
-    border: 1px solid #f0f0f0;
+    /* width: 100%; */
+    /* border: 1px solid #f0f0f0; */
   }
   
   .table__wrapper .table {
@@ -561,7 +561,7 @@ body {
   }
   .center {
     margin: 0 auto;
-    width: 75%;
+    width: 50%;
   }
   
   .table {
