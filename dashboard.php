@@ -138,8 +138,10 @@
 
 <!-- Table -->
 
+<h1>My Daily Usage</h1>
+
+<div class=myflex>
 <section class="center">
-  <h1>My Daily Usage</h1>
   <div class="table__wrapper">
 <?php
 
@@ -172,17 +174,19 @@ mysqli_close($con);
 ?>
   </div>
 </section>
+<div id="containerDaily" class= "lineGraph"></div>
+</div>
 
 
-
+<h1>My Daily Average Usage</h1>
+<div class=myflex>
 <section class="center">
-  <h1>My Daily Average Usage</h1>
   <div class="table__wrapper">
 <?php
 
 include("connection.php");
 session_start();
-$query = "Select AVG(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+$query = "Select Date, AVG(AverageUse) from Readings Group by Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -210,10 +214,13 @@ mysqli_close($con);
   </div>
 </section>
 
+<div id="containerDailyAvg" class= "lineGraph"></div>
+</div>
 
+<h1>My monthly usage</h1>
+<div class=myflex>
 <section class="center">
-  <h1>My monthly usage</h1>
-  <div class="table__wrapper">
+<div class="table__wrapper">
 <?php
 
 include("connection.php");
@@ -246,7 +253,8 @@ mysqli_close($con);
   </div>
 </section>
 
-
+<div id="containerMonth" class= "lineGraph"></div>
+</div>
 
 
 <br><br>
@@ -256,16 +264,38 @@ include("connection.php");
 session_start();
 $query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
 "; //You don't need a ; like you do in SQL
+$query1 = "Select Date, AVG(AverageUse) from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+"; //You don't need a ; like you do in SQL
+$query2 = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Month(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
-$json=[];
-$json2=[];
+$result1 = mysqli_query($con,$query1);
+$result2 = mysqli_query($con,$query2);
+
+$date=[];
+$sumDaily=[];
+$avgDaily=[];
+$sumMonthly=[];
+
 while($row = mysqli_fetch_array($result)){  
-  $json[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $json2[] =  $row['Date'];
+  $sumDaily[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $date[] =  $row['Date'];
+}
+
+while($row = mysqli_fetch_array($result1)){  
+  $avgDaily[] =  (int)$row['AVG(AverageUse)'] ;
+  $date[] =  $row['Date'];
+}
+
+while($row = mysqli_fetch_array($result2)){  
+  $sumMonthly[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $date[] =  $row['Date'];
 }
   
   mysqli_close($con);
 ?>
+
+
 <h1>Comparing Popular Phone Models</h1>
 <div class=myflex>
 <section class="center">
@@ -294,30 +324,73 @@ while($row = mysqli_fetch_array($result)){
 
 
 
-
-
-
 <script>
   var chart = new Highcharts.Chart({
   chart: {
-    renderTo: 'container',
+    renderTo: 'containerDaily',
     marginBottom: 80
   },
   title: {
-      text: 'Daily Average Temperature',
+      text: 'Daily Water Usage',
   },
   xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    categories: <?php echo json_encode($date); ?>,
     labels: {
       rotation: 90
     }
   },
 
   series: [{
-    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]        
+    data: <?php echo json_encode($sumDaily); ?>       
   }]
 });
+
+var chart = new Highcharts.Chart({
+  chart: {
+    renderTo: 'containerDailyAvg',
+    marginBottom: 80
+  },
+  title: {
+      text: 'Daily Average Usage',
+  },
+  xAxis: {
+    categories: <?php echo json_encode($date); ?>,
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: <?php echo json_encode($avgDaily); ?>     
+  }]
+});
+
+
+var chart = new Highcharts.Chart({
+  chart: {
+    renderTo: 'containerMonth',
+    marginBottom: 80
+  },
+  title: {
+      text: 'Total Monthly Usage ',
+  },
+  xAxis: {
+    categories: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: <?php echo json_encode($sumMonthly); ?>       
+  }]
+});
+
+
 </script>
+
+
+
 
 </body>
   </html>
