@@ -7,7 +7,7 @@
 	<title> Water Usage Calculator | BUY NOW!!</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/main.css" type="text/css">	
+  <!-- <link rel="stylesheet" href="css/main.css" type="text/css">	 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- Line chart -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,7 +106,7 @@
                 	<!-- card -->
                 	<a href="#">
                         <div class="card-front bg-blue">
-                            <i class="fa fa-sun-o fa-3x tile-icon icon-white"></i>
+                            <i class="fa fa-heart fa-3x tile-icon icon-white"></i>
                             <h4>Your Daily Average Usage</h4>
                             <?php
                             include("connection.php");
@@ -131,6 +131,37 @@
             </div>
             <!-- /flex-item -->
            
+<!-- flex-item -->
+<div class="flex-item">
+  <div class="flex-item-inner">
+      <!-- card -->
+        <a href="#">
+            <div class="card-front bg-magenta">
+                <i class="fa fa-heart fa-3x tile-icon icon-white"></i>
+                <h4>Monthly Average Usage</h4>
+                <?php
+                include("connection.php");
+                session_start();
+                $query = "Select AVG(AverageMonthUse) from (Select Date , SUM(VolumeOfWater) as 'AverageMonthUse' from Readings Group by Month(Date)) AS M"; //You don't need a ; like you do in SQL
+                $result = mysqli_query($con,$query);
+                // $value = mysqli_fetch_object($result);
+                while($row = mysqli_fetch_array($result)){  
+                echo "<p>" . $row['AVG(AverageMonthUse)'] . ' L' ."</p>" ;
+                }
+                mysqli_close($con);
+                ?>
+            </div>
+            <div class="card-back bg-magenta">
+                <p class="title">Praesent varius mi sem</p>
+                <p class="desc">Cras posuere consequat nisl, ut rhoncus odio finibus sit amet. Sed consectetur dapibus.</p>
+                <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+            </div>
+        </a>
+        <!-- /card -->
+    </div>
+</div>
+<!-- /flex-item -->
+
         </div>
         <!-- /flex-container -->
     </div>
@@ -264,7 +295,7 @@ include("connection.php");
 session_start();
 $query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
 "; //You don't need a ; like you do in SQL
-$query1 = "Select Date, AVG(AverageUse) from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+$query1 = "Select Date, AVG(VolumeOfWater) from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
 "; //You don't need a ; like you do in SQL
 $query2 = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Month(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
 "; //You don't need a ; like you do in SQL
@@ -375,9 +406,51 @@ var chart = new Highcharts.Chart({
       text: 'Total Monthly Usage ',
   },
   xAxis: {
-    categories: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+    categories:  <?php echo json_encode($date); ?>,
     labels: {
-      rotation: 90
+      formatter: function() {
+          // custom formatter
+          debugger;
+          if (this.value == 1) {
+            return 'Jan';
+
+          } else if (this.value == 2) {
+            return 'Feb';
+    
+          }else if (this.value == 3) {
+            return 'Mar';
+    
+          }else if (this.value == 4) {
+            return 'Apr';
+    
+          }else if (this.value == 5) {
+            return 'May';
+    
+          }else if (this.value == 6) {
+            return 'Jun';
+    
+          }else if (this.value == 7) {
+            return 'Jul';
+    
+          }else if (this.value == 8) {
+            return 'Aug';
+    
+          }else if (this.value == 9) {
+            return 'Sept';
+    
+          }else if (this.value == 10) {
+            return 'Oct';
+    
+          }else if (this.value == 11) {
+            return 'Nov';
+    
+          }else if (this.value == 12) {
+            return 'Dec';
+    
+          }
+        },
+      rotation: 0
     }
   },
 

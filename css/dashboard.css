@@ -1,6 +1,79 @@
 /************************
 Css orignal https://codepen.io/jlalovi/details/bIyAr
 ************************/
+/* Menu */
+
+.navbar {
+    display: flex;
+    text-align: center;
+    padding: 20px;
+}
+#bars {
+    display: none;
+}
+
+#menu {
+    display: flex;
+    flex:1; 
+    text-align: right;
+    margin:-60px 0 0 0;
+}
+@media only screen and (max-width:768px){
+    
+    #bars {
+        display: block;
+        margin:-40px 0 0 0;
+    }
+    
+    
+    nav ul {
+        display: inline block;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+		color:white;
+        
+    }
+    #menu {
+        display: none;
+        margin:70px 0 0 0;
+        /* display: flex;
+        flex-direction: column; */
+    }
+    
+    
+}
+
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul {
+    display: inline block;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a:hover {
+    color: rgb(255, 187, 0);
+    border-radius: 30px;
+    text-decoration: underline;
+}
+
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700);
 * {
   -webkit-box-sizing: border-box;
@@ -9,7 +82,7 @@ Css orignal https://codepen.io/jlalovi/details/bIyAr
 }
 
 body{
-    background-color: cornsilk;
+    background-color: rgb(25, 29, 36);
 }
 
 ul {
@@ -122,10 +195,10 @@ h1, h2,p,a, span{
 }
 
 .card-front.bg-magenta {
-	background-color: #0e090a;
+	background-color: rgb(165, 126, 19);
 }
 .card-front.bg-blue {
-	background-color: #0b0d0e;
+	background-color: rgb(165, 126, 19);
 }
 
 .card-back {
