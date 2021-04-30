@@ -293,11 +293,11 @@ mysqli_close($con);
 <?php
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
 "; //You don't need a ; like you do in SQL
-$query1 = "Select Date, AVG(VolumeOfWater) from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
 "; //You don't need a ; like you do in SQL
-$query2 = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Month(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+$query2 = "Select SensorID, Date, SumMonth from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
 "; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
@@ -309,18 +309,18 @@ $avgDaily=[];
 $sumMonthly=[];
 
 while($row = mysqli_fetch_array($result)){  
-  $sumDaily[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $sumDaily[] =  (int)$row['SumDaily'] ;
   $date[] =  $row['Date'];
 }
 
 while($row = mysqli_fetch_array($result1)){  
-  $avgDaily[] =  (int)$row['AVG(AverageUse)'] ;
+  $avgDaily[] =  (int)$row['Avg'] ;
   $date[] =  $row['Date'];
 }
 
 while($row = mysqli_fetch_array($result2)){  
-  $sumMonthly[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $date[] =  $row['Date'];
+  $sumMonthly[] =  (int)$row['SumMonth'] ;
+  $date[] =  (int)$row['Date'];
 }
   
   mysqli_close($con);
