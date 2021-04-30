@@ -247,7 +247,8 @@ var myChart = new Chart(ctx, {
 <?php
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
+$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(DATE) DESC LIMIT 5;
+"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $json=[];
 $json2=[];
