@@ -217,7 +217,7 @@ mysqli_close($con);
 
 include("connection.php");
 session_start();
-$query = "Select Date, AVG(AverageUse) from Readings Group by Date"; //You don't need a ; like you do in SQL
+$query = "Select Date, AVG(VolumeOfWater) from Readings Group by Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -234,7 +234,7 @@ while($row = mysqli_fetch_array($result))
 echo "<tbody>" ; 
 echo "<tr>";
 echo "<td>" . $row['Date'] . "</td>";
-echo "<td>" . $row['AVG(AverageUse)'] . "</td>";
+echo "<td>" . $row['AVG(VolumeOfWater)'] . "</td>";
 echo "</tr>";
 echo "</tbody>" ; 
 }
@@ -297,7 +297,7 @@ $query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(Volume
 "; //You don't need a ; like you do in SQL
 $query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
 "; //You don't need a ; like you do in SQL
-$query2 = "Select SensorID, Date, SumMonth from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
 "; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
@@ -307,6 +307,7 @@ $date=[];
 $sumDaily=[];
 $avgDaily=[];
 $sumMonthly=[];
+$monthNum =[];
 
 while($row = mysqli_fetch_array($result)){  
   $sumDaily[] =  (int)$row['SumDaily'] ;
@@ -321,6 +322,7 @@ while($row = mysqli_fetch_array($result1)){
 while($row = mysqli_fetch_array($result2)){  
   $sumMonthly[] =  (int)$row['SumMonth'] ;
   $date[] =  (int)$row['Date'];
+  $monthNum[] =$row['MONTH(Date)'];
 }
   
   mysqli_close($con);
@@ -407,7 +409,7 @@ var chart = new Highcharts.Chart({
   },
   xAxis: {
 
-    categories:  <?php echo json_encode($date); ?>,
+    categories:  <?php echo json_encode($monthNum); ?>,
     labels: {
       formatter: function() {
           // custom formatter
