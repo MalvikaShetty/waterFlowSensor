@@ -139,37 +139,7 @@
 <!-- Table -->
 
 <section class="center">
-  <h1>Comparing Popular Phone Models</h1>
-  <div class="table__wrapper">
-    <table class="table" summary="This is a summary of your rad table contents.">
-      <thead>
-        <tr>
-          <th scope="row"></th>
-          <th scope="col">iPhone 6</th>
-          <th scope="col">iPhone 6 Plus</th>
-          <th scope="col">Galaxy Note 4</th>
-          <th scope="col">HTC One (M8)</th>
-          <th scope="col">Samsung Galaxy S5</th>
-          <th scope="col">Nokia Lumia 830</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Screen Size</th>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-          <td>5.7 in</td>
-          <td>5 in</td>
-          <td>5.1 in</td>
-          <td>5 in</td>
-        </tr>
-      
-      </tbody>
-    </table>
-  </div>
-</section>
-<section class="center">
-  <h1>Your previous usage</h1>
+  <h1>My Daily Usage</h1>
   <div class="table__wrapper">
 <?php
 
@@ -182,7 +152,7 @@ echo "<table id='basic-data-table' class='table' style='width:75%'>
   <thead>
     <tr>
       <th>Date</th>
-      <th>Total Water Usage (l)</th>
+      <th>Total Daily Usage (in l)</th>
       </tr>
   </thead>";
 
@@ -202,47 +172,84 @@ mysqli_close($con);
 ?>
   </div>
 </section>
-<br><br>
 
-<!-- <canvas id="myChart" width="20%" height="20"></canvas>
-<script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-      maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script> -->
+
+
+<section class="center">
+  <h1>My Daily Average Usage</h1>
+  <div class="table__wrapper">
+<?php
+
+include("connection.php");
+session_start();
+$query = "Select AVG(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+$result = mysqli_query($con,$query);
+
+echo "<table id='basic-data-table' class='table' style='width:75%'>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Average Daily Usage (in l)</th>
+      </tr>
+  </thead>";
+
+
+while($row = mysqli_fetch_array($result))
+{
+echo "<tbody>" ; 
+echo "<tr>";
+echo "<td>" . $row['Date'] . "</td>";
+echo "<td>" . $row['AVG(AverageUse)'] . "</td>";
+echo "</tr>";
+echo "</tbody>" ; 
+}
+
+echo "</table>";
+mysqli_close($con);
+?>
+  </div>
+</section>
+
+
+<section class="center">
+  <h1>My monthly usage</h1>
+  <div class="table__wrapper">
+<?php
+
+include("connection.php");
+session_start();
+$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Month(Date)"; //You don't need a ; like you do in SQL
+$result = mysqli_query($con,$query);
+
+echo "<table id='basic-data-table' class='table' style='width:75%'>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Total Monthly Usage (in l)</th>
+      </tr>
+  </thead>";
+
+
+while($row = mysqli_fetch_array($result))
+{
+echo "<tbody>" ; 
+echo "<tr>";
+echo "<td>" . $row['Date'] . "</td>";
+echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
+echo "</tr>";
+echo "</tbody>" ; 
+}
+
+echo "</table>";
+mysqli_close($con);
+?>
+  </div>
+</section>
+
+
+
+
+<br><br>
 
 <?php
 include("connection.php");
@@ -256,13 +263,39 @@ while($row = mysqli_fetch_array($result)){
   $json[] =  (int)$row['SUM(VolumeOfWater)'] ;
   $json2[] =  $row['Date'];
 }
-  echo json_encode($json);
-  echo json_encode($json2);
   
   mysqli_close($con);
 ?>
+<h1>Comparing Popular Phone Models</h1>
+<div class=myflex>
+<section class="center">
+  <div class="table__wrapper">
+    <table class="table" summary="This is a summary of your rad table contents.">
+      <thead>
+        <tr>
+          <th scope="col">iPhone 6</th>
+          <th scope="col">iPhone 6 Plus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
 
-<div id="container" style="height: 400px; width: 500px"></div>
+<div id="container" class= "lineGraph"></div>
+</div>
+
+
+
+
+
 
 <script>
   var chart = new Highcharts.Chart({
@@ -270,19 +303,21 @@ while($row = mysqli_fetch_array($result)){
     renderTo: 'container',
     marginBottom: 80
   },
+  title: {
+      text: 'Daily Average Temperature',
+  },
   xAxis: {
-    categories: <?php echo json_encode($json2); ?>,
+    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     labels: {
-      rotation: 0
+      rotation: 90
     }
   },
 
   series: [{
-    data:<?php echo json_encode($json); ?>        
+    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]        
   }]
 });
 </script>
-
 
 </body>
   </html>

@@ -164,7 +164,7 @@ h1, h2,p,a, span{
 
 /* Table */
 .table__wrapper {
-    overflow-x: auto;
+    /* overflow-x: auto; */
     /* width: 100%; */
     /* border: 1px solid #f0f0f0; */
   }
@@ -188,19 +188,22 @@ h1, h2,p,a, span{
     text-align: center;
   }
   .center {
-    margin: 0 auto;
-    width: 50%;
+    margin:0 10% 10% 10%;
+    width: 40%;
   }
   
   .table {
     border-collapse: collapse;
     color:black;
     background-color: white ;
+	padding: 10px;
+	box-shadow: 2px 2px 3px 7px #2e2727;
+	border-radius: 20px;
   }
-  
+/*   
   .table tr {
     border-bottom: 1px solid #f0f0f0;
-  }
+  } */
   
   .table thead tr {
     border-bottom: 2px solid #f0f0f0;
@@ -213,7 +216,7 @@ h1, h2,p,a, span{
   .table td,
   .table th {
     padding: .5em;
-    border-right: 1px solid #f0f0f0;
+    /* border-right: 1px solid #f0f0f0; */
   }
   
   .table td {
@@ -222,4 +225,35 @@ h1, h2,p,a, span{
   
   .table th {
     text-align: left;
+  }
+
+
+  .myflex{
+	  display: flex;
+	  flex-direction: row;
+	  /* justify-content: space-evenly; */
+  }
+
+  .lineGraph{
+	height: 500px; 
+	width: 700px;
+	margin:0 7% 10% 7%;
+  }
+  @media only screen and (max-width: 1000px){
+	.myflex{
+		display: flex;
+		flex-direction: column;
+		/* justify-content: space-evenly; */
+	}
+
+	.lineGraph{
+		height: 400px; 
+		width: auto;
+		margin:0 10% 10%;
+	  }
+
+	.table{
+		width: auto;
+		margin:0 20% 10% 27%;
+	}
   }
