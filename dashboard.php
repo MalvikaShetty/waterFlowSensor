@@ -252,7 +252,7 @@ var myChart = new Chart(ctx, {
     marginBottom: 80
   },
   xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    categories: <?php echo json_encode($json2); ?>,
     labels: {
       rotation: 90
     }
