@@ -31,7 +31,7 @@
 
 
         <nav>
-            <div style="display:flex;text-align:left;color:black;">
+            <div style="display:flex;text-align:left;">
                 <p>Welcome&nbsp;</p>
                 <p id="userID"><?php
                                 session_start();
@@ -111,7 +111,7 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select AVG(AverageUse) from (Select Date , SUM(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $query = "Select AVG(AverageUse) from (Select Date , AVG(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
@@ -170,7 +170,7 @@
 <!-- Table -->
 
 <h1>My Daily Usage</h1>
-
+<br><br>
 <div class=myflex>
 <section class="center">
   <div class="table__wrapper">
@@ -210,6 +210,7 @@ mysqli_close($con);
 
 
 <h1>My Daily Average Usage</h1>
+<br><br>
 <div class=myflex>
 <section class="center">
   <div class="table__wrapper">
@@ -249,6 +250,7 @@ mysqli_close($con);
 </div>
 
 <h1>My monthly usage</h1>
+<br><br>
 <div class=myflex>
 <section class="center">
 <div class="table__wrapper">
@@ -330,6 +332,7 @@ while($row = mysqli_fetch_array($result2)){
 
 
 <h1>Comparing Popular Phone Models</h1>
+<br><br>
 <div class=myflex>
 <section class="center">
   <div class="table__wrapper">
@@ -338,6 +341,7 @@ while($row = mysqli_fetch_array($result2)){
         <tr>
           <th scope="col">iPhone 6</th>
           <th scope="col">iPhone 6 Plus</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -346,6 +350,57 @@ while($row = mysqli_fetch_array($result2)){
           <td>5.5 in</td>
       
         </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+        <tr>
+          <td>4.7 in</td>
+          <td>5.5 in</td>
+      
+        </tr>
+       
       
       </tbody>
     </table>
@@ -355,9 +410,23 @@ while($row = mysqli_fetch_array($result2)){
 <div id="container" class= "lineGraph"></div>
 </div>
 
+<script>
+
+function myFunction() {
+						var x = document.getElementById("menu");
+						if (x.style.display === "none") {
+							x.style.display = "flex";
+						} else {
+							x.style.display = "none";
+						}
+					}
+
+</script>
 
 
 <script>
+
+
   var chart = new Highcharts.Chart({
   chart: {
     renderTo: 'containerDaily',
@@ -413,7 +482,6 @@ var chart = new Highcharts.Chart({
     labels: {
       formatter: function() {
           // custom formatter
-          debugger;
           if (this.value == 1) {
             return 'Jan';
 
