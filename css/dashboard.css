@@ -295,6 +295,8 @@ h1, h2,p,a, span{
   
   .table thead th {
     text-align: center;
+	background-color: #ca0043;
+	color: white;
   }
   
   .table td,
