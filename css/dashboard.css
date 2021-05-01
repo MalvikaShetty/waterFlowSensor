@@ -303,10 +303,10 @@ h1, h2,p,a, span{
     /* border-right: 1px solid #f0f0f0; */
   }
 
-  th{
+  /* th{
 	background-color: #ca0043;
 	color: white;
-  }
+  } */
   
   .table td {
     text-align: center;
@@ -314,6 +314,8 @@ h1, h2,p,a, span{
   
   .table th {
     text-align: left;
+	background-color: #ca0043;
+	color: white;
   }
 
 
