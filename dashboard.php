@@ -78,7 +78,7 @@
                             <h4>Today's Usage</h4>
                             <?php
                             include("connection.php");
-                            session_start();
+                            session_start();  
                             $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
@@ -111,7 +111,7 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select AVG(AverageUse) from (Select Date , AVG(VolumeOfWater) as 'AverageUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $query = "Select AVG(SumUse) from (Select Date , SUM(VolumeOfWater) as 'SumUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
