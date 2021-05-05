@@ -22,7 +22,7 @@ $useR = $row['Username'];
 $hash= $row['Password'];
 
 if($username=$useR && password_verify($password, $hash)){
-        header("Location:index.php");
+        header("Location:dashboard.php");
         $_SESSION['loggedin']= true;
     }
 else{
