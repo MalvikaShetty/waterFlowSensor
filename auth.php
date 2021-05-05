@@ -22,8 +22,8 @@ $useR = $row['Username'];
 $hash= $row['Password'];
 
 if($username=$useR && password_verify($password, $hash)){
-        header("Location:displayDash.php");
         $_SESSION['loggedin']= true;
+        header("Location:dashboard.php");
     }
 else{
         $_SESSION['error'] = 'Login failed. Invalid username or password.';

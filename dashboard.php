@@ -1,11 +1,4 @@
-<?php 
-if (!isset($_SESSION['loggedin'])){
-  header("Location:phpLogin.php");
-}
-else{
-  header("Location:dashboard.php");
-}
-?>
+<?php if (isset($_SESSION['loggedin'])) : ?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns:ng="https://angularjs.org">
@@ -634,3 +627,10 @@ Highcharts.chart('containerPie', {
 
 </body>
   </html>
+  <?php else : ?>
+    <html>
+      <body>
+    <a href="phpLogin.php" id="login"> Please Login first! </a>
+      </body>
+    </html>
+  <?php endif; ?>
