@@ -323,10 +323,10 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
-  if ($row['MONTH(Date)'] == 1){
+  if ($row['MONTH(Date)'] = 1){
     echo "<td>" . 'Jan' . "</td>";
   }
-  else if ($row['MONTH(Date)'] == 2){
+  else if ($row['MONTH(Date)'] = 2){
     echo "<td>" . 'Feb' . "</td>";
   }
   else if ($row['MONTH(Date)'] == 3){
