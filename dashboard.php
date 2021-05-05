@@ -1,5 +1,6 @@
-<?php if (isset($_SESSION['loggedin'])) : ?>
-
+<?php
+session_start();
+ if (isset($_SESSION['loggedin'])) : ?>
 <!DOCTYPE html>
 <html lang="en" xmlns:ng="https://angularjs.org">
 
