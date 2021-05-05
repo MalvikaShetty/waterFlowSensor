@@ -1,3 +1,12 @@
+<?php 
+if (!isset($_SESSION['loggedin'])){
+  header("Location:phpLogin.php");
+}
+else{
+  header("Location:dashboard.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" xmlns:ng="https://angularjs.org">
 
@@ -15,7 +24,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://code.angularjs.org/1.2.21/angular.js"></script>
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
-
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
   <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-base.min.js"></script>
   <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
@@ -91,7 +103,7 @@
                         <div class="card-back bg-magenta">
                             <p class="title">Praesent varius mi sem</p>
                             <p class="desc">Cras posuere consequat nisl, ut rhoncus odio finibus sit amet. Sed consectetur dapibus.</p>
-                            <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+                            <a href="#today"><p class="link">Details <i class="fa fa-chevron-circle-right"></i></p></a>
                         </div>
                     </a>
                     <!-- /card -->
@@ -123,7 +135,7 @@
                         <div class="card-back bg-blue">
                             <p class="title">Vestibulum eget sem malesuada</p>
                             <p class="desc">Etiam imperdiet ullamcorper dolor sit amet molestie. Quisque eu nibh in ligula.</p>
-                            <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+                            <a href="#"><p class="link">Details <i class="fa fa-chevron-circle-right"></i></p></a>
                         </div>
                     </a>
                     <!-- /card -->
@@ -154,7 +166,7 @@
             <div class="card-back bg-magenta">
                 <p class="title">Praesent varius mi sem</p>
                 <p class="desc">Cras posuere consequat nisl, ut rhoncus odio finibus sit amet. Sed consectetur dapibus.</p>
-                <p class="link">Details <i class="fa fa-chevron-circle-right"></i></p>
+                <a href="#month"><p class="link">Details <i class="fa fa-chevron-circle-right"></i></p></a>
             </div>
         </a>
         <!-- /card -->
@@ -167,8 +179,47 @@
     </div>
 </div>
 
-<!-- Table -->
 
+<?php
+include("connection.php");
+session_start();
+$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+"; //You don't need a ; like you do in SQL
+$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
+"; //You don't need a ; like you do in SQL
+$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+"; //You don't need a ; like you do in SQL
+$result = mysqli_query($con,$query);
+$result1 = mysqli_query($con,$query1);
+$result2 = mysqli_query($con,$query2);
+
+$date=[];
+$sumDaily=[];
+$avgDaily=[];
+$sumMonthly=[];
+$monthNum =[];
+
+while($row = mysqli_fetch_array($result)){  
+  $sumDaily[] =  (int)$row['SumDaily'] ;
+  $date[] =  $row['Date'];
+}
+
+while($row = mysqli_fetch_array($result1)){  
+  $avgDaily[] =  (int)$row['Avg'] ;
+  $date[] =  $row['Date'];
+}
+
+while($row = mysqli_fetch_array($result2)){  
+  $sumMonthly[] =  (int)$row['SumMonth'] ;
+  $date[] =  (int)$row['Date'];
+  $monthNum[] =$row['MONTH(Date)'];
+}
+  
+  mysqli_close($con);
+?>
+
+<!-- Table -->
+<div id = "today"></div>
 <h1>My Daily Usage</h1>
 <br><br>
 <div class=myflex>
@@ -246,9 +297,13 @@ mysqli_close($con);
   </div>
 </section>
 
-<div id="containerDailyAvg" class= "lineGraph"></div>
+
+<div id="containerPie"></div>
+
 </div>
 
+
+<div id="month"></div>
 <h1>My monthly usage</h1>
 <br><br>
 <div class=myflex>
@@ -274,7 +329,20 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
-echo "<td>" . $row['Date'] . "</td>";
+  if ($row['MONTH(Date)'] = "1"){
+    echo "<td>" . 'Jan' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = "2"){
+    echo "<td>" . 'Feb' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = "3"){
+    echo "<td>" . 'Mar' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = "4"){
+    echo "<td>" . 'Apr' . "</td>";
+  }
+
+
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
 echo "</tbody>" ; 
@@ -291,44 +359,6 @@ mysqli_close($con);
 
 
 <br><br>
-
-<?php
-include("connection.php");
-session_start();
-$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
-"; //You don't need a ; like you do in SQL
-$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
-"; //You don't need a ; like you do in SQL
-$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
-"; //You don't need a ; like you do in SQL
-$result = mysqli_query($con,$query);
-$result1 = mysqli_query($con,$query1);
-$result2 = mysqli_query($con,$query2);
-
-$date=[];
-$sumDaily=[];
-$avgDaily=[];
-$sumMonthly=[];
-$monthNum =[];
-
-while($row = mysqli_fetch_array($result)){  
-  $sumDaily[] =  (int)$row['SumDaily'] ;
-  $date[] =  $row['Date'];
-}
-
-while($row = mysqli_fetch_array($result1)){  
-  $avgDaily[] =  (int)$row['Avg'] ;
-  $date[] =  $row['Date'];
-}
-
-while($row = mysqli_fetch_array($result2)){  
-  $sumMonthly[] =  (int)$row['SumMonth'] ;
-  $date[] =  (int)$row['Date'];
-  $monthNum[] =$row['MONTH(Date)'];
-}
-  
-  mysqli_close($con);
-?>
 
 
 <h1>Comparing Popular Phone Models</h1>
@@ -530,9 +560,76 @@ var chart = new Highcharts.Chart({
 });
 
 
+
 </script>
 
+<script>
+  
+Highcharts.chart('containerPie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Browser market shares in January, 2018'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Chrome',
+            y: 61.41,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Internet Explorer',
+            y: 11.84
+        }, {
+            name: 'Firefox',
+            y: 10.85
+        }, {
+            name: 'Edge',
+            y: 4.67
+        }, {
+            name: 'Safari',
+            y: 4.18
+        }, {
+            name: 'Sogou Explorer',
+            y: 1.64
+        }, {
+            name: 'Opera',
+            y: 1.6
+        }, {
+            name: 'QQ',
+            y: 1.2
+        }, {
+            name: 'Other',
+            y: 2.61
+        }]
+    }]
+});
 
+  </script>
 
 
 </body>
