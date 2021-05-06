@@ -1,6 +1,6 @@
-<?php
-session_start();
+<?php session_start();
  if (isset($_SESSION['loggedin'])) : ?>
+
 <!DOCTYPE html>
 <html lang="en" xmlns:ng="https://angularjs.org">
 
@@ -35,7 +35,7 @@ session_start();
             <div style="display:flex;text-align:left;">
                 <p>Welcome&nbsp;</p>
                 <p id="userID"><?php
-                                session_start();
+                                
                                 $name = $_SESSION['username'];
                                 echo $name;
                                 ?></p>
@@ -318,23 +318,23 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
-echo "<td>" . $row['MONTH(Date)'] . "</td>";
-// while($row['MONTH(Date)']<='12')
+// echo "<td>" . $row['MONTH(Date)'] . "</td>";
+while($row['MONTH(Date)'] <='12')
 {
-  // if ($row['MONTH(Date)'] == 1 ){
-  //   echo "<td>" . 'Jan' . "</td>";
-  // }
-  // elseif ($row['MONTH(Date)'] == 2){
-  //   echo "<td>" . 'Feb' . "</td>";
-  // }
-  // elseif ($row['MONTH(Date)'] == 3){
-  //   echo "<td>" . 'Mar' . "</td>";
-  // }
-  // elseif ($row['MONTH(Date)'] == 4){
-  //   echo "<td>" . 'Apr' . "</td>";
-  // }
+  if ($row['MONTH(Date)'] == "1"){
+    echo "<td>" . 'Jan' . "</td>";
+  }
+  elseif ($row['MONTH(Date)'] == "2"){
+    echo "<td>" . 'Feb' . "</td>";
+  }
+  elseif ($row['MONTH(Date)'] == "3"){
+    echo "<td>" . 'Mar' . "</td>";
+  }
+  elseif ($row['MONTH(Date)'] == "4"){
+    echo "<td>" . 'Apr' . "</td>";
+  }
 
-// } 
+} 
 
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
@@ -616,12 +616,12 @@ Highcharts.chart('containerPie', {
   </script>
 
 
-</body>
-  </html>
-  <?php else : ?>
+ </body>
+</html>
+<?php else: ?>
     <html>
       <body>
     <a href="phpLogin.php" id="login"> Please Login first! </a>
       </body>
     </html>
-  <?php endif; ?>
+<?php endif; ?>
