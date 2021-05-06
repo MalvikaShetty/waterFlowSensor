@@ -319,8 +319,8 @@ while($row = mysqli_fetch_array($result))
 echo "<tbody>" ; 
 echo "<tr>";
 // echo "<td>" . $row['MONTH(Date)'] . "</td>";
-while($row['MONTH(Date)'] <='12')
-{
+// while($row['MONTH(Date)'] <='12')
+// {
   if ($row['MONTH(Date)'] == "1"){
     echo "<td>" . 'Jan' . "</td>";
   }
@@ -330,11 +330,35 @@ while($row['MONTH(Date)'] <='12')
   elseif ($row['MONTH(Date)'] == "3"){
     echo "<td>" . 'Mar' . "</td>";
   }
-  elseif ($row['MONTH(Date)'] == "4"){
+  elseif($row['MONTH(Date)'] == "4"){
     echo "<td>" . 'Apr' . "</td>";
   }
+  elseif($row['MONTH(Date)'] == "5"){
+    echo "<td>" . 'May' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "6"){
+    echo "<td>" . 'Jun' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "7"){
+    echo "<td>" . 'Jul' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "8"){
+    echo "<td>" . 'Aug' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "9"){
+    echo "<td>" . 'Sept' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "10"){
+    echo "<td>" . 'Oct' . "</td>";
+  }
+  elseif($row['MONTH(Date)'] == "11"){
+    echo "<td>" . 'Nov' . "</td>";
+  }
+  else{
+    echo "<td>" . 'Dec' . "</td>";
+  }
 
-} 
+// } 
 
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
