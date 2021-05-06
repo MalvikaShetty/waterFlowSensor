@@ -321,16 +321,16 @@ echo "<tr>";
 // echo "<td>" . $row['MONTH(Date)'] . "</td>";
 // while($row['MONTH(Date)']<='12')
 {
-  if ($row['MONTH(Date)'] == "1"){
+  if ($row['MONTH(Date)'] == 1 ){
     echo "<td>" . 'Jan' . "</td>";
   }
-  elseif ($row['MONTH(Date)'] == "2"){
+  elseif ($row['MONTH(Date)'] == 2){
     echo "<td>" . 'Feb' . "</td>";
   }
-  elseif ($row['MONTH(Date)'] == "3"){
+  elseif ($row['MONTH(Date)'] == 3){
     echo "<td>" . 'Mar' . "</td>";
   }
-  elseif ($row['MONTH(Date)'] == "4"){
+  elseif ($row['MONTH(Date)'] == 4){
     echo "<td>" . 'Apr' . "</td>";
   }
 
