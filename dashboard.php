@@ -302,7 +302,7 @@ mysqli_close($con);
 
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Month(Date)"; //You don't need a ; like you do in SQL
+$query = "Select Date, SUM(VolumeOfWater), MONTH(Date) from Readings GROUP BY Month(Date)"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -318,23 +318,23 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
-echo "<td>" . $row['MONTH(Date)'] . "</td>";
-// while($row['MONTH(Date)']<='12')
-// {
-//   if ($row['MONTH(Date)'] = 1){
-//     echo "<td>" . 'Jan' . "</td>";
-//   }
-//   else if ($row['MONTH(Date)'] = 2){
-//     echo "<td>" . 'Feb' . "</td>";
-//   }
-//   else if ($row['MONTH(Date)'] = 3){
-//     echo "<td>" . 'Mar' . "</td>";
-//   }
-//   else if ($row['MONTH(Date)'] = 4){
-//     echo "<td>" . 'Apr' . "</td>";
-//   }
+// echo "<td>" . $row['MONTH(Date)'] . "</td>";
+while($row['MONTH(Date)']<='12')
+{
+  if ($row['MONTH(Date)'] = 1){
+    echo "<td>" . 'Jan' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = 2){
+    echo "<td>" . 'Feb' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = 3){
+    echo "<td>" . 'Mar' . "</td>";
+  }
+  else if ($row['MONTH(Date)'] = 4){
+    echo "<td>" . 'Apr' . "</td>";
+  }
 
-// } 
+} 
 
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
@@ -461,7 +461,10 @@ function myFunction() {
   xAxis: {
     categories: <?php echo json_encode($date); ?>,
     labels: {
-      rotation: 90
+      rotation: 0,
+      style: {
+                color: 'black'
+            }
     }
   },
 
@@ -543,7 +546,10 @@ var chart = new Highcharts.Chart({
     
           }
         },
-      rotation: 0
+      rotation: 0,
+      style: {
+                color: 'black'
+            }
     }
   },
 
@@ -569,11 +575,11 @@ Highcharts.chart('containerPie', {
         text: 'Browser market shares in January, 2018'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: 'Usage: <b>{point.y:.1f}L</b>'
     },
     accessibility: {
         point: {
-            valueSuffix: '%'
+            valueSuffix: 'L'
         }
     },
     plotOptions: {
@@ -582,7 +588,7 @@ Highcharts.chart('containerPie', {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                format: '<b>{point.name}</b>:Litres'
             }
         }
     },
@@ -590,34 +596,19 @@ Highcharts.chart('containerPie', {
         name: 'Brands',
         colorByPoint: true,
         data: [{
-            name: 'Chrome',
-            y: 61.41,
+            name: 'Morning',
+            y: 50,
             sliced: true,
-            selected: true
+            // selected: true
         }, {
-            name: 'Internet Explorer',
-            y: 11.84
+            name: 'Afternoon',
+            y: 110.84
         }, {
-            name: 'Firefox',
-            y: 10.85
+            name: 'Evening',
+            y: 40.85
         }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
+            name:  'Night',
+            y: 10.67
         }]
     }]
 });
