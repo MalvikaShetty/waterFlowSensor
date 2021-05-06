@@ -249,7 +249,7 @@ mysqli_close($con);
 </div>
 
 
-<h1>My Daily Average Usage</h1>
+<h1>My Usage during the day</h1>
 <br><br>
 <div class=myflex>
 <section class="center">
@@ -480,10 +480,13 @@ function myFunction() {
     marginBottom: 80
   },
   title: {
-      text: 'Daily Water Usage',
+      text: 'Daily Water Usage (in litres)',
   },
   xAxis: {
     categories: <?php echo json_encode($date); ?>,
+    title: {
+            text: 'Dates'
+          },
     labels: {
       rotation: 0,
       style: {
@@ -565,7 +568,7 @@ var chart = new Highcharts.Chart({
           }else if (this.value == 11) {
             return 'Nov';
     
-          }else if (this.value == 12) {
+          }else  {
             return 'Dec';
     
           }
@@ -596,7 +599,7 @@ Highcharts.chart('containerPie', {
         type: 'pie'
     },
     title: {
-        text: 'Browser market shares in January, 2018'
+        text: 'My usage during the day'
     },
     tooltip: {
         pointFormat: 'Usage: <b>{point.y:.1f}L</b>'
