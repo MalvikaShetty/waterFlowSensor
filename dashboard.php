@@ -290,7 +290,7 @@ mysqli_close($con);
 <div id="containerPie"></div>
 
 </div>
-
+<br><br>
 
 <div id="month"></div>
 <h1>My monthly usage</h1>
@@ -539,19 +539,19 @@ var chart = new Highcharts.Chart({
     labels: {
       formatter: function() {
           // custom formatter
-          if (this.value == 1) {
+          if (this.value == "1") {
             return 'Jan';
 
-          } else if (this.value == 2) {
+          } else if (this.value == "2") {
             return 'Feb';
     
-          }else if (this.value == 3) {
+          }else if (this.value == "3") {
             return 'Mar';
     
-          }else if (this.value == 4) {
+          }else if (this.value == "4") {
             return 'Apr';
     
-          }else if (this.value == 5) {
+          }else if (this.value == "5") {
             return 'May';
     
           }else if (this.value == 6) {
@@ -569,7 +569,7 @@ var chart = new Highcharts.Chart({
           }else if (this.value == 10) {
             return 'Oct';
     
-          }else if (this.value == 11) {
+          }else if (this.value == "11") {
             return 'Nov';
     
           }else  {
@@ -580,7 +580,7 @@ var chart = new Highcharts.Chart({
       rotation: 0,
       style: {
                 color: 'black'
-            }
+            },
     }
   },
 
