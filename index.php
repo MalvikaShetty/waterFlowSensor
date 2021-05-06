@@ -34,6 +34,13 @@
 						<div style="flex:1; text-align: right;margin:40px 0 0 0;">
 							<li> <a href="index.php"> Home </a> </li>
 							<li> <a href="AboutPage.php"> About The Product </a> </li>
+							<li>
+								<?php if (isset($_SESSION['loggedin'])) : ?>
+									<a href="dashboard.php" id="login"> Dashboard </a>
+								<?php else : ?>
+									<a href="#" id="login"></a>
+								<?php endif; ?>
+							</li>
 							<li> <a href="Contacts.php"> Contact us </a> </li>
 							<li>
 								<?php if (isset($_SESSION['loggedin'])) : ?>

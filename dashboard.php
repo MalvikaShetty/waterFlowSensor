@@ -10,22 +10,17 @@ session_start();
 	<title> Water Usage Calculator | BUY NOW!!</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- <link rel="stylesheet" href="css/main.css" type="text/css">	 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- Line chart -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://code.angularjs.org/1.2.21/angular.js"></script>
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-  <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-base.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="css/dashboard.css" type="text/css">
 
 
@@ -323,23 +318,23 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
-// echo "<td>" . $row['MONTH(Date)'] . "</td>";
-while($row['MONTH(Date)']<='12')
-{
-  if ($row['MONTH(Date)'] = 1){
-    echo "<td>" . 'Jan' . "</td>";
-  }
-  else if ($row['MONTH(Date)'] = 2){
-    echo "<td>" . 'Feb' . "</td>";
-  }
-  else if ($row['MONTH(Date)'] == 3){
-    echo "<td>" . 'Mar' . "</td>";
-  }
-  else if ($row['MONTH(Date)'] == 4){
-    echo "<td>" . 'Apr' . "</td>";
-  }
+echo "<td>" . $row['MONTH(Date)'] . "</td>";
+// while($row['MONTH(Date)']<='12')
+// {
+//   if ($row['MONTH(Date)'] = 1){
+//     echo "<td>" . 'Jan' . "</td>";
+//   }
+//   else if ($row['MONTH(Date)'] = 2){
+//     echo "<td>" . 'Feb' . "</td>";
+//   }
+//   else if ($row['MONTH(Date)'] = 3){
+//     echo "<td>" . 'Mar' . "</td>";
+//   }
+//   else if ($row['MONTH(Date)'] = 4){
+//     echo "<td>" . 'Apr' . "</td>";
+//   }
 
-} 
+// } 
 
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
