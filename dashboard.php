@@ -323,6 +323,9 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tbody>" ; 
 echo "<tr>";
+// echo "<td>" . $row['MONTH(Date)'] . "</td>";
+while($row['MONTH(Date)']<='12')
+{
   if ($row['MONTH(Date)'] = 1){
     echo "<td>" . 'Jan' . "</td>";
   }
@@ -336,6 +339,7 @@ echo "<tr>";
     echo "<td>" . 'Apr' . "</td>";
   }
 
+} 
 
 echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
