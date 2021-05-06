@@ -249,7 +249,7 @@ mysqli_close($con);
 </div>
 
 
-<h1>My Usage during the day</h1>
+<h1>My usage based on time </h1>
 <br><br>
 <div class=myflex>
 <section class="center">
@@ -496,6 +496,7 @@ function myFunction() {
   },
 
   series: [{
+    showInLegend: false,
     data: <?php echo json_encode($sumDaily); ?>       
   }]
 });
@@ -532,6 +533,9 @@ var chart = new Highcharts.Chart({
   xAxis: {
 
     categories:  <?php echo json_encode($monthNum); ?>,
+    title: {
+            text: 'Months'
+          },
     labels: {
       formatter: function() {
           // custom formatter
@@ -581,6 +585,7 @@ var chart = new Highcharts.Chart({
   },
 
   series: [{
+    showInLegend: false,
     data: <?php echo json_encode($sumMonthly); ?>       
   }]
 });
