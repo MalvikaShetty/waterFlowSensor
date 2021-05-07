@@ -6,6 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title> Water Usage Calculator | BUY NOW!!</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -501,25 +502,25 @@ function myFunction() {
   }]
 });
 
-var chart = new Highcharts.Chart({
-  chart: {
-    renderTo: 'containerDailyAvg',
-    marginBottom: 80
-  },
-  title: {
-      text: 'Daily Average Usage',
-  },
-  xAxis: {
-    categories: <?php echo json_encode($date); ?>,
-    labels: {
-      rotation: 90
-    }
-  },
+// var chart = new Highcharts.Chart({
+//   chart: {
+//     renderTo: 'containerDailyAvg',
+//     marginBottom: 80
+//   },
+//   title: {
+//       text: 'Daily Average Usage',
+//   },
+//   xAxis: {
+//     categories: <?php echo json_encode($date); ?>,
+//     labels: {
+//       rotation: 90
+//     }
+//   },
 
-  series: [{
-    data: <?php echo json_encode($avgDaily); ?>     
-  }]
-});
+//   series: [{
+//     data: <?php echo json_encode($avgDaily); ?>     
+//   }]
+// });
 
 
 var chart = new Highcharts.Chart({
@@ -591,11 +592,6 @@ var chart = new Highcharts.Chart({
 });
 
 
-
-</script>
-
-<script>
-  
 Highcharts.chart('containerPie', {
     chart: {
         plotBackgroundColor: null,
@@ -645,7 +641,9 @@ Highcharts.chart('containerPie', {
     }]
 });
 
-  </script>
+
+
+</script>
 
 
  </body>
