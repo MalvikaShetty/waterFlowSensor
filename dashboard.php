@@ -82,7 +82,7 @@
                             include("connection.php");
                             session_start(); 
                             $sensor = $_SESSION['Sensor']; 
-                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02' AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
+                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2021-01-02' AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
@@ -115,7 +115,7 @@
                             include("connection.php");
                             session_start();
                             $sensor = $_SESSION['Sensor'];
-                            $query = "Select AVG(SumUse) from (Select Date , SUM(VolumeOfWater) as 'SumUse' from Readings WHERE SensorID= '$sensor Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $query = "Select AVG(SumUse) from (Select Date , SUM(VolumeOfWater) as 'SumUse' from Readings WHERE SensorID= '$sensor' Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
