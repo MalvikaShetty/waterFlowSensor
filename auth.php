@@ -14,6 +14,7 @@ $username = mysqli_real_escape_string($con, $username);
 $password = mysqli_real_escape_string($con, $password);
 
 $sql = "select * from WaterSensor.Users where Username = '$username' LIMIT 1";
+
 $sqlSensorID = "select SensorID from WaterSensor.UserSensorID where Username = '$username'";
 
 $result = mysqli_query($con, $sql);
