@@ -13,17 +13,18 @@ $password = stripcslashes($password);
 $username = mysqli_real_escape_string($con, $username);
 $password = mysqli_real_escape_string($con, $password);
 
-$sql = "select * from WaterSensor.Users where Username = '$username' LIMIT 1";
+$sqlSensorID = "select SensorID from WaterSensor.UserSensorID where Username = '$username' LIMIT 1";
 
-$sqlSensorID = "select SensorID from WaterSensor.UserSensorID where Username = '$username'";
+$resultSensorID = mysqli_query($con, $sqlSensorID);
+$row1 = mysqli_fetch_array($resultSensorID, MYSQLI_ASSOC);
+
+$_SESSION['Sensor'] = $row1['SensorID'];
+
+
+$sql = "select * from WaterSensor.Users where Username = '$username' LIMIT 1";
 
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-$resultSensorID = mysqli_query($con, $sqlSensorID);
-$row = mysqli_fetch_array($resultSensorID, MYSQLI_ASSOC);
-
-$_SESSION['Sensor'] = $row['SensorID'];
 
 $useR = $row['Username'];
 $hash= $row['Password'];
