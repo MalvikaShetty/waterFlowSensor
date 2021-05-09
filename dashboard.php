@@ -177,11 +177,11 @@
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
-$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+$query = "Select ID, SensorID,Date, SumDaily from (SELECT ID,SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ID ASC;
 "; //You don't need a ; like you do in SQL
-$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
+$query1 = "Select ID, SensorID,Date, Avg from (SELECT ID, SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ID ASC
 "; //You don't need a ; like you do in SQL
-$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+$query2 = "Select ID, SensorID, Date, SumMonth, MONTH(Date) from (SELECT ID, SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ID ASC;
 "; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
