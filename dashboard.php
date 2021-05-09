@@ -1,5 +1,5 @@
 <?php session_start();
- if (isset($_SESSION['loggedin'])) : ?>
+ if (isset($_SESSION['loggedin'])) :$sensor = $_SESSION['Sensor']; ?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns:ng="https://angularjs.org">
@@ -81,7 +81,7 @@
                             <?php
                             include("connection.php");
                             session_start();  
-                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02'"; //You don't need a ; like you do in SQL
+                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2020-01-02' AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
@@ -113,7 +113,8 @@
                             <?php
                             include("connection.php");
                             session_start();
-                            $query = "Select AVG(SumUse) from (Select Date , SUM(VolumeOfWater) as 'SumUse' from Readings Group by Date) AS M"; //You don't need a ; like you do in SQL
+                            $sensor = $_SESSION['Sensor'];
+                            $query = "Select AVG(SumUse) from (Select Date , SUM(VolumeOfWater) as 'SumUse' from Readings WHERE SensorID= '$sensor Group by Date) AS M"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);  
                             while($row = mysqli_fetch_array($result)){ 
@@ -144,7 +145,7 @@
                 <?php
                 include("connection.php");
                 session_start();
-                $query = "Select AVG(AverageMonthUse) from (Select Date , SUM(VolumeOfWater) as 'AverageMonthUse' from Readings Group by Month(Date)) AS M"; //You don't need a ; like you do in SQL
+                $query = "Select AVG(AverageMonthUse) from (Select Date , SUM(VolumeOfWater) as 'AverageMonthUse' from Readings Where SensorID = '$sensor' Group by Month(Date)) AS M"; //You don't need a ; like you do in SQL
                 $result = mysqli_query($con,$query);
                 // $value = mysqli_fetch_object($result);
                 while($row = mysqli_fetch_array($result)){  
@@ -173,11 +174,11 @@
 <?php
 include("connection.php");
 session_start();
-$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
 "; //You don't need a ; like you do in SQL
-$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
+$query1 = "Select SensorID,Date, Avg from (SELECT SensorID, Date, Avg(VolumeOfWater) AS Avg from Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC
 "; //You don't need a ; like you do in SQL
-$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
+$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT SensorID, Date, Sum(VolumeOfWater) AS SumMonth from Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY SensorID ASC;
 "; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
@@ -219,7 +220,7 @@ while($row = mysqli_fetch_array($result2)){
 
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater) from Readings GROUP BY Date"; //You don't need a ; like you do in SQL
+$query = "Select Date, SUM(VolumeOfWater) from Readings Where SensorID = '$sensor' GROUP BY Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -259,7 +260,7 @@ mysqli_close($con);
 
 include("connection.php");
 session_start();
-$query = "Select Date, AVG(VolumeOfWater) from Readings Group by Date"; //You don't need a ; like you do in SQL
+$query = "Select Date, AVG(VolumeOfWater) from Readings Where SensorID = '$sensor' Group by Date"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -303,7 +304,7 @@ mysqli_close($con);
 
 include("connection.php");
 session_start();
-$query = "Select Date, SUM(VolumeOfWater), MONTH(Date) from Readings GROUP BY Month(Date)"; //You don't need a ; like you do in SQL
+$query = "Select Date, SUM(VolumeOfWater), MONTH(Date) from Readings Where SensorID = '$sensor' GROUP BY Month(Date)"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
