@@ -8,9 +8,9 @@ if(!empty($_POST['SensorID'])  && !empty($_POST['VolumeOfWater']))
     $vol = $_POST['VolumeOfWater'];
    
 
-    $sql = "INSERT INTO WaterSensor.Readings (SensorID, VolumeOfWater, Date)
+    $sql = "INSERT INTO WaterSensor.Readings (SensorID, VolumeOfWater, Date ,Time)
     
-    VALUES ('".$sensorId."', '".$vol."', curdate())";
+    VALUES ('".$sensorId."', '".$vol."', curdate() , curtime())";
 
     if ($con->query($sql) === TRUE) {
         echo "OK";

@@ -43,7 +43,7 @@ $sql = "SELECT * FROM WaterSensor.Readings ORDER BY id DESC";
     {
       // Fetch one and one row
       echo "<TABLE id='c4ytable'>";
-      echo "<TR><TH>Sr.No.</TH><TH>SensorID</TH><TH>Volume</TH><TH>Date</TH></TR>";
+      echo "<TR><TH>Sr.No.</TH><TH>SensorID</TH><TH>Volume</TH><TH>Date</TH><TH>Time</TH></TR>";
       while ($row=mysqli_fetch_row($result))
       {
         echo "<TR>";
@@ -51,7 +51,7 @@ $sql = "SELECT * FROM WaterSensor.Readings ORDER BY id DESC";
         echo "<TD>".$row[1]."</TD>";
         echo "<TD>".$row[2]."</TD>";
         echo "<TD>".$row[3]."</TD>";
-        // echo "<TD>".$row[4]."</TD>";
+        echo "<TD>".$row[4]."</TD>";
         echo "</TR>";
       }
       echo "</TABLE>";
