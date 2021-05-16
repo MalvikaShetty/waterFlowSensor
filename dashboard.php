@@ -177,7 +177,7 @@
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
-$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
+$query = "Select SensorID,Date, SumDaily from (SELECT ReadingsID, SensorID, Date, SUM(VolumeOfWater) AS SumDaily from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
 "; //You don't need a ; like you do in SQL
 $query1 = "Select SensorID,Date, Avg from (SELECT ReadingsID, SensorID, Date, Avg(VolumeOfWater) AS Avg from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC
 "; //You don't need a ; like you do in SQL
@@ -316,7 +316,7 @@ $result = mysqli_query($con,$query);
 echo "<table id='basic-data-table' class='table' style='width:75%'>
   <thead>
     <tr>
-      <th>Date</th>
+      <th>Month</th>
       <th>Total Monthly Usage (in l)</th>
       </tr>
   </thead>";
@@ -482,19 +482,19 @@ var chart = new Highcharts.Chart({
           }else if (this.value == "5") {
             return 'May';
     
-          }else if (this.value == 6) {
+          }else if (this.value == "6") {
             return 'Jun';
     
-          }else if (this.value == 7) {
+          }else if (this.value == "7") {
             return 'Jul';
     
-          }else if (this.value == 8) {
+          }else if (this.value == "8") {
             return 'Aug';
     
-          }else if (this.value == 9) {
+          }else if (this.value == "9") {
             return 'Sept';
     
-          }else if (this.value == 10) {
+          }else if (this.value == "10") {
             return 'Oct';
     
           }else if (this.value == "11") {
