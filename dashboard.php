@@ -82,7 +82,7 @@
                             include("connection.php");
                             session_start(); 
                             $sensor = $_SESSION['Sensor']; 
-                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date='2021-01-02' AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
+                            $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
@@ -177,11 +177,11 @@
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
-$query = "Select ReadingsID, SensorID,Date, SumDaily from (SELECT ReadingsID,SensorID, Date, SUM(VolumeOfWater) AS SumDaily from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
+$query = "Select SensorID,Date, SumDaily from (SELECT SensorID, Date, SUM(VolumeOfWater) AS SumDaily from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
 "; //You don't need a ; like you do in SQL
-$query1 = "Select ReadingsID, SensorID,Date, Avg from (SELECT ReadingsID, SensorID, Date, Avg(VolumeOfWater) AS Avg from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC
+$query1 = "Select SensorID,Date, Avg from (SELECT ReadingsID, SensorID, Date, Avg(VolumeOfWater) AS Avg from WaterSensor.Readings Where SensorID = '$sensor' Group by Date ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC
 "; //You don't need a ; like you do in SQL
-$query2 = "Select ReadingsID, SensorID, Date, SumMonth, MONTH(Date) from (SELECT ReadingsID, SensorID, Date, Sum(VolumeOfWater) AS SumMonth from WaterSensor.Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
+$query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT ReadingsID, SensorID, Date, Sum(VolumeOfWater) AS SumMonth from WaterSensor.Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
 "; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
@@ -384,86 +384,6 @@ mysqli_close($con);
 
 
 <br><br>
-
-
-<h1>Comparing Popular Phone Models</h1>
-<br><br>
-<div class=myflex>
-<section class="center">
-  <div class="table__wrapper">
-    <table class="table" summary="This is a summary of your rad table contents.">
-      <thead>
-        <tr>
-          <th scope="col">iPhone 6</th>
-          <th scope="col">iPhone 6 Plus</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-        <tr>
-          <td>4.7 in</td>
-          <td>5.5 in</td>
-      
-        </tr>
-       
-      
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<div id="container" class= "lineGraph"></div>
-</div>
 
 <script>
 
