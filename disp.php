@@ -38,7 +38,7 @@
 <?php 
 include('connection.php');
 session_start();
-$sql = "SELECT * FROM WaterSensor.Readings ORDER BY id DESC";
+$sql = "SELECT * FROM WaterSensor.Readings ORDER BY ReadingsID DESC";
 $result=mysqli_query($con,$sql) or die("Failed query: ". mysqli_error($con,$sql));
 
     if ($result=mysqli_query($con,$sql))
