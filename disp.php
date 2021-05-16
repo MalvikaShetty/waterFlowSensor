@@ -39,8 +39,11 @@
 include('connection.php');
 session_start();
 $sql = "SELECT * FROM WaterSensor.Readings ORDER BY id DESC";
+$result=mysqli_query($con,$sql) or die("Failed query: ". mysqli_error($con,$sql));
+
     if ($result=mysqli_query($con,$sql))
     {
+      echo "It worked";
       // Fetch one and one row
       echo "<TABLE id='c4ytable'>";
       echo "<TR><TH>Sr.No.</TH><TH>SensorID</TH><TH>Volume</TH><TH>Date</TH><TH>Time</TH></TR>";
