@@ -139,27 +139,6 @@
             </div>
             <!-- /flex-item -->
 
-         <?php
-          include("connection.php");
-          session_start();
-          $sensor = $_SESSION['Sensor'];
-          $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
-          $result = mysqli_query($con,$query);
-          // $value = mysqli_fetch_object($result);  
-          while($row = mysqli_fetch_array($result)){ 
-            $exceed = (int)$row['SUM(VolumeOfWater)'] - 10;
-            if ($exceed > 0){
-              echo "<h2> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h2>" ;
-            } 
-            else
-            {
-              echo '';
-            }
-          }
-          mysqli_close($con);
-          ?>  
-<h2></h2>
-
 <!-- flex-item -->
 <div class="flex-item">
   <div class="flex-item-inner">
@@ -195,6 +174,28 @@
         </div>
         <!-- /flex-container -->
     </div>
+</div>
+
+<div style="color:red;font-weight:bold">
+         <?php
+          include("connection.php");
+          session_start();
+          $sensor = $_SESSION['Sensor'];
+          $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
+          $result = mysqli_query($con,$query);
+          // $value = mysqli_fetch_object($result);  
+          while($row = mysqli_fetch_array($result)){ 
+            $exceed = (int)$row['SUM(VolumeOfWater)'] - 10;
+            if ($exceed > 0){
+              echo "<h1> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h1>" ;
+            } 
+            else
+            {
+              echo '';
+            }
+          }
+          mysqli_close($con);
+          ?>  
 </div>
 
 
@@ -251,6 +252,7 @@ while($row = mysqli_fetch_array($result2)){
 
 while($row = mysqli_fetch_array($resultMrng)){  
   $timeMrng[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeMor = (int)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultAftrn)){  
@@ -605,11 +607,11 @@ Highcharts.chart('containerPie', {
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'Usage',
         colorByPoint: true,
         data: [{
             name: 'Morning',
-            y: <?php echo json_encode($timeMrng); ?>,
+            y: <?php echo $nonArrayTimeMor; ?>,
             sliced: true,
             // selected: true
         }, {
