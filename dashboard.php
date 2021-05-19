@@ -85,11 +85,13 @@
                             $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
-                            if($row = mysqli_fetch_array($result)){  
-                            echo "<p>" . $row['SUM(VolumeOfWater)'] . ' L' ."</p>" ;
+                            while($row = mysqli_fetch_array($result)){  
+                            if (mysqli_fetch_array($result)>0){
+                              echo "<p>" . $row['SUM(VolumeOfWater)'] . ' L' ."</p>" ;
                             }
                             else
                             {echo "<p> 0 L </p>" ;}
+                          }
                             mysqli_close($con);
                             ?>
                         </div>
@@ -153,7 +155,7 @@
             {
               echo '';
             }
-            }
+          }
           mysqli_close($con);
           ?>  
 <h2></h2>
