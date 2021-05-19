@@ -247,7 +247,7 @@ h1, h2,p,a, span{
 .table__wrapper {
     overflow-y: auto;
 	height:500px;
-    /* width: 100%; */
+    width: 100%;
     /* border: 1px solid #f0f0f0; */
 	/* border-radius: 25px; */
   }
@@ -348,12 +348,14 @@ h1, h2,p,a, span{
 
 	.table{
 		width:50%;
+		height:auto;
 		/* margin:0 10% 10% 20%; */
 	}
 
 	.table__wrapper {
 		overflow-y: auto;
-		height:500px;
+		height:auto;
+		width: 75%;
 		/* border: 1px solid #f0f0f0; */
 		/* border-radius: 25px; */
 	  }

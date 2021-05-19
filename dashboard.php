@@ -270,7 +270,7 @@ while($row = mysqli_fetch_array($resultNight)){
   // $timeNight[] =  (int)$row['SUM(VolumeOfWater)'] ;
   $nonArrayTimeNight = (float)$row['SUM(VolumeOfWater)'] ;
 }
-  
+   
   mysqli_close($con);
 ?>
 
@@ -319,45 +319,7 @@ mysqli_close($con);
 <h1>My usage based on time </h1>
 <br><br>
 <div class=myflex>
-<section class="center">
-  <div class="table__wrapper">
-<?php
-
-include("connection.php");
-session_start();
-$sensor = $_SESSION['Sensor'];
-$query = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '#01' AND Time BETWEEN '00:00:00' AND '12:00:00' GROUP
-BY Date;"; //You don't need a ; like you do in SQL
-$result = mysqli_query($con,$query);
-
-echo "<table id='basic-data-table' class='table' style='width:75%'>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Average Daily Usage (in l)</th>
-      </tr>
-  </thead>";
-
-
-while($row = mysqli_fetch_array($result))
-{
-echo "<tbody>" ; 
-echo "<tr>";
-echo "<td>" . $row['Date'] . "</td>";
-echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
-echo "</tr>";
-echo "</tbody>" ; 
-}
-
-echo "</table>";
-mysqli_close($con);
-?>
-  </div>
-</section>
-
-
 <div id="containerPie"></div>
-
 </div>
 <br><br>
 
