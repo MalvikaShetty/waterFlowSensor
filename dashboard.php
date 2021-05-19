@@ -187,7 +187,8 @@
           while($row = mysqli_fetch_array($result)){ 
             $exceed = (int)$row['SUM(VolumeOfWater)'] - 10;
             if ($exceed > 0){
-              echo "<h1> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h1>" ;
+              echo "<h1 style='color:red;font-weight:bold'> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h1>" ;
+             
             } 
             else
             {
@@ -281,7 +282,7 @@ while($row = mysqli_fetch_array($resultNight)){
 <section class="center">
   <div class="table__wrapper">
 <?php
-
+ echo $nonArrayTimeMor ; 
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
@@ -614,7 +615,7 @@ var chart = new Highcharts.Chart({
 //         colorByPoint: true,
 //         data: [{
 //             name: 'Morning',
-//             y: <?php echo $nonArrayTimeMor; ?>,
+//             y: <?php echo $nonArrayTimeMor ; ?>,
 //             sliced: true,
 //             // selected: true
 //         }, {
