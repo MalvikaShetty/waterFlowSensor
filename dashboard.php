@@ -579,8 +579,9 @@ var chart = new Highcharts.Chart({
     data: <?php echo json_encode($sumMonthly); ?>       
   }]
 });
+</script>
 
-
+<script>
 Highcharts.chart('containerPie', {
     chart: {
         plotBackgroundColor: null,
@@ -629,7 +630,6 @@ Highcharts.chart('containerPie', {
         }]
     }]
 });
-
 
 
 </script>
