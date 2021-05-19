@@ -319,9 +319,9 @@ mysqli_close($con);
 <h1>My usage based on time </h1>
 <br><br>
 <div class=myflex>
-<div style="margin-left:25%" id="containerPie"></div>
+<div style="margin-left:35%" id="containerPie"></div>
 </div>
-<br><br>
+<br><br><br>
 
 <div id="month"></div>
 <h1>My monthly usage</h1>
