@@ -282,7 +282,7 @@ while($row = mysqli_fetch_array($resultNight)){
 <section class="center">
   <div class="table__wrapper">
 <?php
- echo $nonArrayTimeMor ; 
+echo $nonArrayTimeAft ; 
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
