@@ -281,8 +281,7 @@ while($row = mysqli_fetch_array($resultNight)){
 <div class=myflex>
 <section class="center">
   <div class="table__wrapper">
-<?php
-echo $nonArrayTimeAft ; 
+<?php 
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
@@ -582,54 +581,54 @@ var chart = new Highcharts.Chart({
 });
 
 
-// Highcharts.chart('containerPie', {
-//     chart: {
-//         plotBackgroundColor: null,
-//         plotBorderWidth: null,
-//         plotShadow: false,
-//         type: 'pie'
-//     },
-//     title: {
-//         text: 'My usage during the day'
-//     },
-//     tooltip: {
-//         pointFormat: 'Usage: <b>{point.y:.1f}L</b>'
-//     },
-//     accessibility: {
-//         point: {
-//             valueSuffix: 'L'
-//         }
-//     },
-//     plotOptions: {
-//         pie: {
-//             allowPointSelect: true,
-//             cursor: 'pointer',
-//             dataLabels: {
-//                 enabled: true,
-//                 format: '<b>{point.name}</b>:Litres'
-//             }
-//         }
-//     },
-//     series: [{
-//         name: 'Usage',
-//         colorByPoint: true,
-//         data: [{
-//             name: 'Morning',
-//             y: <?php echo $nonArrayTimeMor ; ?>,
-//             sliced: true,
-//             // selected: true
-//         }, {
-//             name: 'Afternoon',
-//             y: <?php echo $nonArrayTimeAft; ?>
-//         }, {
-//             name: 'Evening',
-//             y: <?php echo $nonArrayTimeEve ?>
-//         }, {
-//             name:  'Night',
-//             y: <?php echo json_encode($timeNight); ?>
-//         }]
-//     }]
-// });
+Highcharts.chart('containerPie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'My usage during the day'
+    },
+    tooltip: {
+        pointFormat: 'Usage: <b>{point.y:.1f}L</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: 'L'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>:Litres'
+            }
+        }
+    },
+    series: [{
+        name: 'Usage',
+        colorByPoint: true,
+        data: [{
+            name: 'Morning',
+            y: <?php echo $nonArrayTimeMor ; ?>,
+            sliced: true,
+            // selected: true
+        }, {
+            name: 'Afternoon',
+            y: <?php echo $nonArrayTimeAft; ?>
+        }, {
+            name: 'Evening',
+            y: <?php echo $nonArrayTimeEve ?>
+        }, {
+            name:  'Night',
+            y: <?php echo $nonArrayTimeNight ; ?>
+        }]
+    }]
+});
 
 
 
