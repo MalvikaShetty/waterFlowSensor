@@ -257,14 +257,17 @@ while($row = mysqli_fetch_array($resultMrng)){
 
 while($row = mysqli_fetch_array($resultAftrn)){  
   $timeAftrn[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeAft = (int)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultEve)){  
   $timeEve[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeEve = (int)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultNight)){  
   $timeNight[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeNight = (int)$row['SUM(VolumeOfWater)'] ;
 }
   
   mysqli_close($con);
@@ -616,10 +619,10 @@ Highcharts.chart('containerPie', {
             // selected: true
         }, {
             name: 'Afternoon',
-            y: <?php echo json_encode($timeAftrn); ?>
+            y: <?php echo $nonArrayTimeAft; ?>
         }, {
             name: 'Evening',
-            y: <?php echo json_encode($timeEve); ?>
+            y: <?php echo $nonArrayTimeEve ?>
         }, {
             name:  'Night',
             y: <?php echo json_encode($timeNight); ?>
