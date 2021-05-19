@@ -86,7 +86,7 @@
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
                             while($row = mysqli_fetch_array($result)){  
-                            if (mysqli_fetch_array($result)>0){
+                            if ($row['SUM(VolumeOfWater)'] > 0){
                               echo "<p>" . $row['SUM(VolumeOfWater)'] . ' L' ."</p>" ;
                             }
                             else
@@ -197,7 +197,7 @@
           mysqli_close($con);
           ?>  
 </div>
-
+<br><br><br>
 
 <?php
 include("connection.php");
