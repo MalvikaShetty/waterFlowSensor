@@ -252,23 +252,23 @@ while($row = mysqli_fetch_array($result2)){
 }
 
 while($row = mysqli_fetch_array($resultMrng)){  
-  $timeMrng[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $nonArrayTimeMor = (int)$row['SUM(VolumeOfWater)'] ;
+  // $timeMrng[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeMor = (float)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultAftrn)){  
-  $timeAftrn[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $nonArrayTimeAft = (int)$row['SUM(VolumeOfWater)'] ;
+  // $timeAftrn[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeAft = (float)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultEve)){  
-  $timeEve[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $nonArrayTimeEve = (int)$row['SUM(VolumeOfWater)'] ;
+  // $timeEve[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeEve = (float)$row['SUM(VolumeOfWater)'] ;
 }
 
 while($row = mysqli_fetch_array($resultNight)){  
-  $timeNight[] =  (int)$row['SUM(VolumeOfWater)'] ;
-  $nonArrayTimeNight = (int)$row['SUM(VolumeOfWater)'] ;
+  // $timeNight[] =  (int)$row['SUM(VolumeOfWater)'] ;
+  $nonArrayTimeNight = (float)$row['SUM(VolumeOfWater)'] ;
 }
   
   mysqli_close($con);
