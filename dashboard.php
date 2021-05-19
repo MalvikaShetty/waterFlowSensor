@@ -85,9 +85,11 @@
                             $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
                             $result = mysqli_query($con,$query);
                             // $value = mysqli_fetch_object($result);
-                            while($row = mysqli_fetch_array($result)){  
+                            if($row = mysqli_fetch_array($result)){  
                             echo "<p>" . $row['SUM(VolumeOfWater)'] . ' L' ."</p>" ;
                             }
+                            else
+                            {echo "<p> 0 L </p>" ;}
                             mysqli_close($con);
                             ?>
                         </div>
@@ -134,7 +136,28 @@
                 </div>
             </div>
             <!-- /flex-item -->
-           
+
+         <?php
+          include("connection.php");
+          session_start();
+          $sensor = $_SESSION['Sensor'];
+          $query = "Select SUM(VolumeOfWater) from Readings WHERE Date=CURDATE() AND SensorID = '$sensor'"; //You don't need a ; like you do in SQL
+          $result = mysqli_query($con,$query);
+          // $value = mysqli_fetch_object($result);  
+          while($row = mysqli_fetch_array($result)){ 
+            $exceed = (int)$row['SUM(VolumeOfWater)'] - 135;
+            if ($exceed > 0){
+              echo "<h2> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h2>" ;
+            } 
+            else
+            {
+              echo '';
+            }
+            }
+          mysqli_close($con);
+          ?>  
+<h2></h2>
+
 <!-- flex-item -->
 <div class="flex-item">
   <div class="flex-item-inner">
@@ -183,15 +206,30 @@ $query1 = "Select SensorID,Date, Avg from (SELECT ReadingsID, SensorID, Date, Av
 "; //You don't need a ; like you do in SQL
 $query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT ReadingsID, SensorID, Date, Sum(VolumeOfWater) AS SumMonth from WaterSensor.Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
 "; //You don't need a ; like you do in SQL
+$queryMorning = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '00:00:00' AND '12:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryAfternoon = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '12:00:00' AND '16:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryEvening = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '16:00:00' AND '20:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryNight = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '20:00:00' AND '00:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
+
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
 $result2 = mysqli_query($con,$query2);
+$resultMrng = mysqli_query($con,$queryMorning);
+$resultAftrn = mysqli_query($con,$queryAfternoon);
+$resultEve = mysqli_query($con,$queryEvening);
+$resultNight = mysqli_query($con,$queryNight);
+
 
 $date=[];
 $sumDaily=[];
 $avgDaily=[];
 $sumMonthly=[];
 $monthNum =[];
+$timeMrng = [];
+$timeAftrn = [];
+$timeEve = [];
+$timeNight = [];
+
 
 while($row = mysqli_fetch_array($result)){  
   $sumDaily[] =  (int)$row['SumDaily'] ;
@@ -207,6 +245,22 @@ while($row = mysqli_fetch_array($result2)){
   $sumMonthly[] =  (int)$row['SumMonth'] ;
   $date[] =  (int)$row['Date'];
   $monthNum[] =$row['MONTH(Date)'];
+}
+
+while($row = mysqli_fetch_array($resultMrng)){  
+  $timeMrng[] =  (int)$row['SUM(VolumeOfWater)'] ;
+}
+
+while($row = mysqli_fetch_array($resultAftrn)){  
+  $timeAftrn[] =  (int)$row['SUM(VolumeOfWater)'] ;
+}
+
+while($row = mysqli_fetch_array($resultEve)){  
+  $timeEve[] =  (int)$row['SUM(VolumeOfWater)'] ;
+}
+
+while($row = mysqli_fetch_array($resultNight)){  
+  $timeNight[] =  (int)$row['SUM(VolumeOfWater)'] ;
 }
   
   mysqli_close($con);
@@ -265,7 +319,8 @@ mysqli_close($con);
 include("connection.php");
 session_start();
 $sensor = $_SESSION['Sensor'];
-$query = "Select Date, AVG(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' Group by Date"; //You don't need a ; like you do in SQL
+$query = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '#01' AND Time BETWEEN '00:00:00' AND '12:00:00' GROUP
+BY Date;"; //You don't need a ; like you do in SQL
 $result = mysqli_query($con,$query);
 
 echo "<table id='basic-data-table' class='table' style='width:75%'>
@@ -282,7 +337,7 @@ while($row = mysqli_fetch_array($result))
 echo "<tbody>" ; 
 echo "<tr>";
 echo "<td>" . $row['Date'] . "</td>";
-echo "<td>" . $row['AVG(VolumeOfWater)'] . "</td>";
+echo "<td>" . $row['SUM(VolumeOfWater)'] . "</td>";
 echo "</tr>";
 echo "</tbody>" ; 
 }
@@ -552,18 +607,18 @@ Highcharts.chart('containerPie', {
         colorByPoint: true,
         data: [{
             name: 'Morning',
-            y: 50,
+            y: <?php echo json_encode($timeMrng); ?>,
             sliced: true,
             // selected: true
         }, {
             name: 'Afternoon',
-            y: 110.84
+            y: <?php echo json_encode($timeAftrn); ?>
         }, {
             name: 'Evening',
-            y: 40.85
+            y: <?php echo json_encode($timeEve); ?>
         }, {
             name:  'Night',
-            y: 10.67
+            y: <?php echo json_encode($timeNight); ?>
         }]
     }]
 });
