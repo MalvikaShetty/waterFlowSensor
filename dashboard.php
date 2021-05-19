@@ -319,7 +319,7 @@ mysqli_close($con);
 <h1>My usage based on time </h1>
 <br><br>
 <div class=myflex>
-<div style="margin-left:35%" id="containerPie"></div>
+<div style="margin-left:31%" id="containerPie"></div>
 </div>
 <br><br><br>
 
