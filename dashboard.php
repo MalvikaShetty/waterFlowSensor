@@ -615,18 +615,46 @@ Highcharts.chart('containerPie', {
         colorByPoint: true,
         data: [{
             name: 'Morning',
-            y: <?php echo $nonArrayTimeMor ; ?>,
+            y: <?php if($nonArrayTimeMor>0){
+              echo $nonArrayTimeMor ;
+            }
+            else
+            {
+              echo 0;
+            }
+              ?>,
             sliced: true,
             // selected: true
         }, {
             name: 'Afternoon',
-            y: <?php echo $nonArrayTimeAft; ?>
+            y: <?php if($nonArrayTimeAft>0){
+              echo $nonArrayTimeAft ;
+            }
+            else
+            {
+              echo 0;
+            }
+              ?>
         }, {
             name: 'Evening',
-            y: <?php echo $nonArrayTimeEve ?>
+            y: <?php if($nonArrayTimeEve>0){
+              echo $nonArrayTimeEve ;
+            }
+            else
+            {
+              echo 0;
+            }
+              ?>
         }, {
             name:  'Night',
-            y: <?php echo $nonArrayTimeNight ; ?>
+            y:<?php if($nonArrayTimeNight>0){
+              echo $nonArrayTimeNight ;
+            }
+            else
+            {
+              echo 0;
+            }
+              ?>
         }]
     }]
 });
