@@ -210,10 +210,10 @@ $query1 = "Select SensorID,Date, Avg from (SELECT ReadingsID, SensorID, Date, Av
 "; //You don't need a ; like you do in SQL
 $query2 = "Select SensorID, Date, SumMonth, MONTH(Date) from (SELECT ReadingsID, SensorID, Date, Sum(VolumeOfWater) AS SumMonth from WaterSensor.Readings Where SensorID = '$sensor' Group by MONTH(Date) ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC LIMIT 8) AS M ORDER BY ReadingsID ASC;
 "; //You don't need a ; like you do in SQL
-$queryMorning = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '00:00:00' AND '12:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
-$queryAfternoon = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '12:00:00' AND '16:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
-$queryEvening = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '16:00:00' AND '20:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
-$queryNight = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '20:00:00' AND '00:00:00' GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryMorning = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '00:00:00' AND '12:00:00' AND Date= CURDATE() GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryAfternoon = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '12:00:00' AND '16:00:00' AND Date= CURDATE() GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryEvening = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '16:00:00' AND '20:00:00' AND Date= CURDATE() GROUP BY Date;"; //You don't need a ; like you do in SQL
+$queryNight = "Select Date, SUM(VolumeOfWater) from WaterSensor.Readings Where SensorID = '$sensor' AND Time BETWEEN '20:00:00' AND '00:00:00' AND Date= CURDATE() GROUP BY Date;"; //You don't need a ; like you do in SQL
 
 $result = mysqli_query($con,$query);
 $result1 = mysqli_query($con,$query1);
