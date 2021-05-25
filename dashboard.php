@@ -582,7 +582,7 @@ Highcharts.chart('containerPie', {
             }
             else
             {
-              echo 5;
+              echo 0;
             }
               ?>,
             sliced: true,
@@ -594,7 +594,7 @@ Highcharts.chart('containerPie', {
             }
             else
             {
-              echo 5;
+              echo 0;
             }
               ?>
         }, {
@@ -604,7 +604,7 @@ Highcharts.chart('containerPie', {
             }
             else
             {
-              echo 5;
+              echo 0;
             }
               ?>
         }, {
@@ -614,7 +614,7 @@ Highcharts.chart('containerPie', {
             }
             else
             {
-              echo 5;
+              echo 0;
             }
               ?>
         }]
