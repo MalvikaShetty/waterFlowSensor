@@ -185,7 +185,7 @@
           $result = mysqli_query($con,$query);
           // $value = mysqli_fetch_object($result);  
           while($row = mysqli_fetch_array($result)){ 
-            $exceed = (int)$row['SUM(VolumeOfWater)'] - 10;
+            $exceed = (int)$row['SUM(VolumeOfWater)'] - 2;
             if ($exceed > 0){
               echo "<h1 style='color:red;font-weight:bold'> Alert : You have exceeded today's usage by " . $exceed . ' L' . "</h1>" ;
              
