@@ -577,7 +577,7 @@ Highcharts.chart('containerPie', {
         colorByPoint: true,
         data: [{
             name: 'Morning',
-            y: <?php if($nonArrayTimeMor>-1){
+            y: <?php if($nonArrayTimeMor>0){
               echo $nonArrayTimeMor ;
             }
             else
@@ -589,7 +589,7 @@ Highcharts.chart('containerPie', {
             // selected: true
         }, {
             name: 'Afternoon',
-            y: <?php if($nonArrayTimeAft>-1){
+            y: <?php if($nonArrayTimeAft>0){
               echo $nonArrayTimeAft ;
             }
             else
@@ -599,7 +599,7 @@ Highcharts.chart('containerPie', {
               ?>
         }, {
             name: 'Evening',
-            y: <?php if($nonArrayTimeEve>-1){
+            y: <?php if($nonArrayTimeEve>0){
               echo $nonArrayTimeEve ;
             }
             else
@@ -609,7 +609,7 @@ Highcharts.chart('containerPie', {
               ?>
         }, {
             name:  'Night',
-            y:<?php if($nonArrayTimeNight>-1){
+            y:<?php if($nonArrayTimeNight>0){
               echo $nonArrayTimeNight ;
             }
             else
